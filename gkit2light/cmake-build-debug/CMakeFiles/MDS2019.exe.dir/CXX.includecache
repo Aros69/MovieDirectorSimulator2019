@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/gKit/window.h
+SDL2/SDL.h
+-
+
+/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/main.cpp
+stdio.h
+-
+window.h
+/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/window.h
+
