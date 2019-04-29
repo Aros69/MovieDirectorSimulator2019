@@ -1,3 +1,0 @@
-/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/cmake-build-debug/CMakeFiles/MDS2019.exe.dir
-/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/cmake-build-debug/CMakeFiles/edit_cache.dir
