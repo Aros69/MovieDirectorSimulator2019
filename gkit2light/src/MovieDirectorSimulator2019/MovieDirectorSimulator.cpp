@@ -13,6 +13,7 @@ int MovieDirectorSimulator::init() {
     int minor = 0;
     glGetIntegerv(GL_MAJOR_VERSION, &major);
     glGetIntegerv(GL_MINOR_VERSION, &minor);
+    m_world.setParticlesCount(10);
     std::cout << "OpenGL version " << major << " " << minor << "\n";
     const GLubyte *txt;
 
@@ -57,6 +58,16 @@ int MovieDirectorSimulator::init() {
     init_sphere();
     init_cone();
     init_cylinder();
+
+	m_bvh.init("data/bvh/danse.bvh");
+    //m_bvh.init(smart_path("data/bvh/motionFSM/avatar_kick_roundhouse_R.bvh"));
+
+    m_frameNumber = 0;
+    m_ske.init(m_bvh);
+    m_ske.setPose(m_bvh, -1);// met le skeleton a la pose au repos
+
+    characterSkeleton.init(*characterController.getAnim());
+    characterSkeleton.setPose(*characterController.getAnim(), -1);
     return 1;
 }
 
@@ -91,8 +102,63 @@ void MovieDirectorSimulator::draw_character(const Skeleton &) {
         Point point2 = (characterController.getMatChar() * animCorrection)(
                 characterSkeleton.getJointPosition(
                         characterSkeleton.getParentId(i)));
-        draw_cylinder(point1, point2, 1);
+        draw_cylinder(point1/10, point2/10, 0.5);
     }
+}
+
+void MovieDirectorSimulator::draw_cylinder(const Transform &T) {
+    gl.model(T);
+    gl.draw(m_cylinder);
+
+    Transform Tch = T * Translation(0, 1, 0);
+    gl.model(Tch);
+    gl.draw(m_cylinder_cover);
+
+    //Transform Tcb = T  * Translation( 0, -1, 0);
+    Transform Tcb = T * Translation(0, 0, 0) * Rotation(Vector(1, 0, 0), 180);
+    gl.model(Tcb);
+    gl.draw(m_cylinder_cover);
+}
+
+
+void MovieDirectorSimulator::draw_cylinder(const Point &a, const Point &b, float r) {
+    Vector ab = b - a;
+    Vector p, y, z;
+    Vector abn = normalize(ab);
+    float lab = length(ab);
+    if (lab < 0.00001f) return;
+    if (fabs(ab.x) > 0.25f)
+        p = Vector(0, 1, 0);
+    else
+        p = Vector(1, 0, 0);
+
+    y = cross(abn, p);
+    y = normalize(y);
+    z = cross(abn, y);
+    Transform T(z, abn, y, Vector(0, 0, 0));
+    //cout << T[0] << endl;
+    //cout << T[1] << endl;
+    //cout << T[2] << endl;
+    //cout << T[3] << endl;
+
+    draw_cylinder(Translation(Vector(a)) * T * Scale(r, lab, r));
+}
+
+void MovieDirectorSimulator::draw_sphere(const Point &a, float r) {
+    draw_sphere(Translation(Vector(a)) * Scale(r, r, r));
+}
+
+
+void MovieDirectorSimulator::draw_sphere(const Transform &T) {
+    gl.model(T);
+    gl.draw(m_sphere);
+}
+
+void MovieDirectorSimulator::draw_cube(const Transform &T) {
+    gl.lighting(true);
+    gl.texture(0);
+    gl.model(T);
+    gl.draw(m_cube);
 }
 
 int MovieDirectorSimulator::render() {
@@ -105,6 +171,9 @@ int MovieDirectorSimulator::render() {
     // donne notre camera au shader
     gl.camera(m_camera);
 
+    // Affiche le personnage Controlle
+    draw_character(characterSkeleton);
+/*
     gl.lighting(true);
     gl.texture(0);
     gl.model(Translation(0, 0, 0));
@@ -124,7 +193,7 @@ int MovieDirectorSimulator::render() {
     Vector scaleMax(scaleInit.x*distMax, scaleInit.y*distMax, scaleInit.z);
     gl.model(Translation(posMax)*Scale(scaleMax.x, scaleMax.y, scaleMax.z));
     gl.draw(m_quad);
-
+*/
     return 1;
 }
 
@@ -401,4 +470,24 @@ void MovieDirectorSimulator::init_cylinder() {
         alpha = -i * step;
         m_cylinder_cover.vertex(Point(cos(alpha), 0, sin(alpha)));
     }
+}
+
+int MovieDirectorSimulator::update(const float time, const float delta) {
+	if (key_state('n')) {
+        m_frameNumber++;
+        std::cout << m_frameNumber << '\n';
+    }
+    if (key_state('b')) {
+        --m_frameNumber;
+        std::cout << m_frameNumber << '\n';
+    }
+    m_ske.setPose(m_bvh, m_frameNumber);
+
+    cubeController.update(delta / 1000);
+    characterController.update(delta / 1000);
+    characterSkeleton.setPose(*characterController.getAnim(),
+                              characterController.getFrameAnim());
+
+    m_world.update(0.1f);
+    return 0;
 }
