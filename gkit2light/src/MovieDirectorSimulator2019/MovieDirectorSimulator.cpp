@@ -4,7 +4,9 @@ MovieDirectorSimulator::MovieDirectorSimulator() : App(1024, 768),
                                                    mb_cullface(true),
                                                    mb_wireframe(false),
                                                    b_draw_grid(true),
-                                                   b_draw_axe(true) {}
+                                                   b_draw_axe(true) {
+    directorCamera = new DirectorCamera(&gl);
+}
 
 int MovieDirectorSimulator::init() {
     SDL_SetWindowTitle(m_window, "Movie Director Simulator 2019");
@@ -78,8 +80,8 @@ void MovieDirectorSimulator::help() {
 void MovieDirectorSimulator::draw_skeleton(const Skeleton &, const Transform offset) {
 
     for (int i = 1; i < m_ske.numberOfJoint(); ++i) {
-        draw_cylinder(offset(m_ske.getJointPosition(i)),
-                      offset(m_ske.getJointPosition(m_ske.getParentId(i))), 1);
+        /*draw_cylinder(offset(m_ske.getJointPosition(i)),
+                      offset(m_ske.getJointPosition(m_ske.getParentId(i))), 1);*/
     }
 }
 
@@ -91,7 +93,7 @@ void MovieDirectorSimulator::draw_character(const Skeleton &) {
         Point point2 = (characterController.getMatChar() * animCorrection)(
                 characterSkeleton.getJointPosition(
                         characterSkeleton.getParentId(i)));
-        draw_cylinder(point1, point2, 1);
+        //draw_cylinder(point1, point2, 1);
     }
 }
 
@@ -107,24 +109,12 @@ int MovieDirectorSimulator::render() {
 
     gl.lighting(true);
     gl.texture(0);
-    gl.model(Translation(0, 0, 0));
+    gl.model(Translation(-2, 0, 0));
     gl.draw(m_sphere);
     gl.model(Translation(2, 0, 0));
     gl.draw(m_sphere);
 
-    gl.lighting(true);
-    gl.texture(0);
-    Vector posInit(0,5,0);
-    Vector scaleInit(1,1,1);
-    gl.model(Translation(posInit)*Scale(scaleInit.x, scaleInit.y, scaleInit.z));
-    gl.draw(m_quad);
-
-    int distMax = 7;
-    Vector posMax(posInit.x, posInit.y, posInit.z+distMax);
-    Vector scaleMax(scaleInit.x*distMax, scaleInit.y*distMax, scaleInit.z);
-    gl.model(Translation(posMax)*Scale(scaleMax.x, scaleMax.y, scaleMax.z));
-    gl.draw(m_quad);
-
+    directorCamera->draw();
     return 1;
 }
 
@@ -401,4 +391,42 @@ void MovieDirectorSimulator::init_cylinder() {
         alpha = -i * step;
         m_cylinder_cover.vertex(Point(cos(alpha), 0, sin(alpha)));
     }
+}
+
+void MovieDirectorSimulator::draw_cylinder(const Transform &T) {
+    gl.model(T);
+    gl.draw(m_cylinder);
+
+    Transform Tch = T * Translation(0, 1, 0);
+    gl.model(Tch);
+    gl.draw(m_cylinder_cover);
+
+    //Transform Tcb = T  * Translation( 0, -1, 0);
+    Transform Tcb = T * Translation(0, 0, 0) * Rotation(Vector(1, 0, 0), 180);
+    gl.model(Tcb);
+    gl.draw(m_cylinder_cover);
+}
+
+
+void MovieDirectorSimulator::draw_cylinder(const Point &a, const Point &b, float r) {
+    Vector ab = b - a;
+    Vector p, y, z;
+    Vector abn = normalize(ab);
+    float lab = length(ab);
+    if (lab < 0.00001f) return;
+    if (fabs(ab.x) > 0.25f)
+        p = Vector(0, 1, 0);
+    else
+        p = Vector(1, 0, 0);
+
+    y = cross(abn, p);
+    y = normalize(y);
+    z = cross(abn, y);
+    Transform T(z, abn, y, Vector(0, 0, 0));
+    //cout << T[0] << endl;
+    //cout << T[1] << endl;
+    //cout << T[2] << endl;
+    //cout << T[3] << endl;
+
+    draw_cylinder(Translation(Vector(a)) * T * Scale(r, lab, r));
 }

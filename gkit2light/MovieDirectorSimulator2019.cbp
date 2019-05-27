@@ -203,10 +203,10 @@
 		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/main.cpp">
 			<Option target="MDS2019.exe"/>
 		</Unit>
-		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/GenericObject.cpp">
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/DirectorCamera.cpp">
 			<Option target="MDS2019.exe"/>
 		</Unit>
-		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/GenericObject.h">
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/DirectorCamera.h">
 			<Option target="MDS2019.exe"/>
 		</Unit>
 		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/MovieDirectorSimulator.cpp">

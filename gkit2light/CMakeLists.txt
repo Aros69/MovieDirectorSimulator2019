@@ -21,7 +21,7 @@ include(${CMAKE_DIR}/addDependencies.cmake)
 # Create execute file
 add_executable(MDS2019.exe
         ${GKIT_SRC_FILES}
-        ${MDS2019_SRC_FILES})
+        ${MDS2019_SRC_FILES} src/MovieDirectorSimulator2019/DirectorCamera.cpp src/MovieDirectorSimulator2019/DirectorCamera.h)
 
 # Link SDL2, OpenGL and GLEW
 target_link_libraries(MDS2019.exe

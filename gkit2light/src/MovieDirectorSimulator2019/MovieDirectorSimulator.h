@@ -10,8 +10,8 @@
 #include "Anim/CubeController.h"
 #include "Anim/BVH.h"
 #include "Anim/Viewer.h"
-#include "Anim/TransformQ.h"
 #include "Anim/PhysicalWorld.h"
+#include "DirectorCamera.h"
 
 class MovieDirectorSimulator : public App {
 public:
@@ -57,6 +57,7 @@ protected:
     Mesh m_cone;
     Mesh m_cylinder;
     Mesh m_cylinder_cover;
+    DirectorCamera *directorCamera;
 
     bool b_draw_grid;
     bool b_draw_axe;
@@ -68,6 +69,9 @@ protected:
     void init_sphere();
     void init_cone();
     void init_cylinder();
+
+    void draw_cylinder(const Transform& T);
+    void draw_cylinder(const Point& a, const Point& b, float r = 1.f);
 
     void manageCameraLight();
 
