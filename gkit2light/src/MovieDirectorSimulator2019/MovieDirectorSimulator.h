@@ -5,6 +5,13 @@
 #include <app.h>
 #include <mesh.h>
 #include <draw.h>
+#include "Anim/CharacterController.h"
+#include "Anim/Skeleton.h"
+#include "Anim/CubeController.h"
+#include "Anim/BVH.h"
+#include "Anim/Viewer.h"
+#include "Anim/TransformQ.h"
+#include "Anim/PhysicalWorld.h"
 
 class MovieDirectorSimulator : public App {
 public:
@@ -23,6 +30,19 @@ public:
     int quit() { return 1; }
 
 protected:
+
+	chara::BVH m_bvh;
+    int m_frameNumber;
+
+    Skeleton m_ske;
+
+    PhysicalWorld m_world;
+
+    CubeController cubeController;
+
+    Skeleton characterSkeleton;
+    CharacterController characterController;
+
     Orbiter m_camera;
     DrawParam gl;
     bool mb_cullface;
@@ -43,7 +63,9 @@ protected:
 
     void manageCameraLight();
 
+    void draw_skeleton(const Skeleton &, const Transform offset);
 
+    void draw_character(const Skeleton &);
 };
 
 

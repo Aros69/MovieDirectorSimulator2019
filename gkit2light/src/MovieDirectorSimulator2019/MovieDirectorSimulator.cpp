@@ -73,6 +73,26 @@ void MovieDirectorSimulator::help() {
     printf("\tSouris mouvement vertical+bouton droit: (de)zoom\n");
 }
 
+void MovieDirectorSimulator::draw_skeleton(const Skeleton &, const Transform offset) {
+
+    for (int i = 1; i < m_ske.numberOfJoint(); ++i) {
+        draw_cylinder(offset(m_ske.getJointPosition(i)),
+                      offset(m_ske.getJointPosition(m_ske.getParentId(i))), 1);
+    }
+}
+
+void MovieDirectorSimulator::draw_character(const Skeleton &) {
+    for (int i = 1; i < characterSkeleton.numberOfJoint(); ++i) {
+        Transform animCorrection = *characterController.getAnimCorrection();
+        Point point1 = (characterController.getMatChar() * animCorrection)(
+                characterSkeleton.getJointPosition(i));
+        Point point2 = (characterController.getMatChar() * animCorrection)(
+                characterSkeleton.getJointPosition(
+                        characterSkeleton.getParentId(i)));
+        draw_cylinder(point1, point2, 1);
+    }
+}
+
 int MovieDirectorSimulator::render() {
     // Efface l'ecran
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
