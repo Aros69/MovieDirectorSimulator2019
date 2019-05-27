@@ -8,7 +8,6 @@ MovieDirectorSimulator::MovieDirectorSimulator() : App(1024, 768),
 
 int MovieDirectorSimulator::init() {
     SDL_SetWindowTitle(m_window, "Movie Director Simulator 2019");
-    std::cout << "==>ViewerBasic" << "\n";
 
     int major = 0;
     int minor = 0;
@@ -53,8 +52,11 @@ int MovieDirectorSimulator::init() {
 
     init_axe();
     init_grid();
+    init_quad();
     init_cube();
-
+    init_sphere();
+    init_cone();
+    init_cylinder();
     return 1;
 }
 
@@ -82,6 +84,26 @@ int MovieDirectorSimulator::render() {
 
     // donne notre camera au shader
     gl.camera(m_camera);
+
+    gl.lighting(true);
+    gl.texture(0);
+    gl.model(Translation(0, 0, 0));
+    gl.draw(m_sphere);
+    gl.model(Translation(2, 0, 0));
+    gl.draw(m_sphere);
+
+    gl.lighting(true);
+    gl.texture(0);
+    Vector posInit(0,5,0);
+    Vector scaleInit(1,1,1);
+    gl.model(Translation(posInit)*Scale(scaleInit.x, scaleInit.y, scaleInit.z));
+    gl.draw(m_quad);
+
+    int distMax = 7;
+    Vector posMax(posInit.x, posInit.y, posInit.z+distMax);
+    Vector scaleMax(scaleInit.x*distMax, scaleInit.y*distMax, scaleInit.z);
+    gl.model(Translation(posMax)*Scale(scaleMax.x, scaleMax.y, scaleMax.z));
+    gl.draw(m_quad);
 
     return 1;
 }
@@ -134,8 +156,6 @@ void MovieDirectorSimulator::manageCameraLight() {
     if (key_state(SDLK_PAGEDOWN) && key_state(SDLK_LCTRL)) {
         gl.light(gl.light() + Vector(0, -step, 0));
     }
-
-
 
     // (De)Active la grille / les axes
     if (key_state('h')) help();
@@ -192,7 +212,6 @@ void MovieDirectorSimulator::init_axe() {
     m_axe.vertex(0, 0, 1);
 }
 
-
 void MovieDirectorSimulator::init_grid() {
     m_grid = Mesh(GL_LINES);
 
@@ -207,6 +226,25 @@ void MovieDirectorSimulator::init_grid() {
             m_grid.vertex(i, 0, 5);
 
         }
+}
+
+void MovieDirectorSimulator::init_quad() {
+    m_quad = Mesh(GL_TRIANGLE_STRIP);
+    m_quad.color(Color(1, 1, 1));
+
+    m_quad.normal(0, 0, 1);
+
+    m_quad.texcoord(0, 0);
+    m_quad.vertex(-1, -1, 0);
+
+    m_quad.texcoord(1, 0);
+    m_quad.vertex(1, -1, 0);
+
+    m_quad.texcoord(0, 1);
+    m_quad.vertex(-1, 1, 0);
+
+    m_quad.texcoord(1, 1);
+    m_quad.vertex(1, 1, 0);
 }
 
 void MovieDirectorSimulator::init_cube() {
@@ -255,3 +293,92 @@ void MovieDirectorSimulator::init_cube() {
     }
 }
 
+void MovieDirectorSimulator::init_sphere() {
+    const int divBeta = 26;
+    const int divAlpha = divBeta / 2;
+    int i, j;
+    float beta, alpha, alpha2;
+
+    m_sphere = Mesh(GL_TRIANGLE_STRIP);
+
+    m_sphere.color(Color(1, 1, 1));
+
+    for (i = 0; i < divAlpha; ++i) {
+        alpha = -0.5f * M_PI + float(i) * M_PI / divAlpha;
+        alpha2 = -0.5f * M_PI + float(i + 1) * M_PI / divAlpha;
+
+        for (j = 0; j < divBeta; ++j) {
+            beta = float(j) * 2.f * M_PI / (divBeta - 1);
+
+            m_sphere.texcoord(beta / (2.0f * M_PI), 0.5f + alpha / M_PI);
+            m_sphere.normal(Vector(cos(alpha) * cos(beta), sin(alpha),
+                                   cos(alpha) * sin(beta)));
+            m_sphere.vertex(Point(cos(alpha) * cos(beta), sin(alpha),
+                                  cos(alpha) * sin(beta)));
+
+            m_sphere.texcoord(beta / (2.0f * M_PI), 0.5f + alpha2 / M_PI);
+            m_sphere.normal(Vector(cos(alpha2) * cos(beta), sin(alpha2),
+                                   cos(alpha2) * sin(beta)));
+            m_sphere.vertex(Point(cos(alpha2) * cos(beta), sin(alpha2),
+                                  cos(alpha2) * sin(beta)));
+
+        }
+
+        m_sphere.restart_strip();
+    }
+}
+
+void MovieDirectorSimulator::init_cone() {
+    int i;
+    const int div = 25;
+    float alpha;
+    float step = 2.0 * M_PI / (div);
+
+    m_cone.color(Color(1, 1, 1));
+
+    m_cone = Mesh(GL_TRIANGLE_STRIP);
+
+    for (i = 0; i <= div; ++i) {
+        alpha = i * step;
+
+        m_cone.normal(Vector(cos(alpha) / sqrtf(2.f), 1.f / sqrtf(2.f),
+                             sin(alpha) / sqrtf(2.f)));
+
+        m_cone.texcoord(float(i) / div, 0.f);
+        m_cone.vertex(Point(cos(alpha), 0, sin(alpha)));
+
+        m_cone.texcoord(float(i) / div, 1.f);
+        m_cone.vertex(Point(0, 1, 0));
+
+    }
+}
+
+void MovieDirectorSimulator::init_cylinder() {
+    int i;
+    const int div = 25;
+    float alpha;
+    float step = 2.0 * M_PI / (div);
+
+    m_cylinder = Mesh(GL_TRIANGLE_STRIP);
+
+    for (i = 0; i <= div; ++i) {
+        alpha = i * step;
+        m_cylinder.normal(Vector(cos(alpha), 0, sin(alpha)));
+        m_cylinder.texcoord(float(i) / div, 0.f);
+        m_cylinder.vertex(Point(cos(alpha), 0, sin(alpha)));
+
+        m_cylinder.normal(Vector(cos(alpha), 0, sin(alpha)));
+        m_cylinder.texcoord(float(i) / div, 1.f);
+        m_cylinder.vertex(Point(cos(alpha), 1, sin(alpha)));
+    }
+
+    m_cylinder_cover = Mesh(GL_TRIANGLE_FAN);
+
+    m_cylinder_cover.normal(Vector(0, 1, 0));
+
+    m_cylinder_cover.vertex(Point(0, 0, 0));
+    for (i = 0; i <= div; ++i) {
+        alpha = -i * step;
+        m_cylinder_cover.vertex(Point(cos(alpha), 0, sin(alpha)));
+    }
+}

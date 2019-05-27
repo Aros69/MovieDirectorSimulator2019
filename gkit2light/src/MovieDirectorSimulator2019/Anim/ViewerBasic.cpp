@@ -78,8 +78,6 @@ int ViewerBasic::init() {
     init_axe();
     init_grid();
     init_cube();
-    init_quad();
-
     return 1;
 }
 
