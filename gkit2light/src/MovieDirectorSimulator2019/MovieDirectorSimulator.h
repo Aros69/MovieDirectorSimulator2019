@@ -27,6 +27,8 @@ public:
 
     void help();
 
+    int update(const float time, const float delta);
+
     int quit() { return 1; }
 
 protected:
@@ -78,6 +80,13 @@ protected:
     void draw_skeleton(const Skeleton &, const Transform offset);
 
     void draw_character(const Skeleton &);
+
+   	void draw_sphere(const Transform& T);
+
+   	void draw_sphere(const Point& a, float r = 1.f);
+
+   	void draw_cube(const Transform& T);
+
 };
 
 
