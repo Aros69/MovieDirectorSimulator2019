@@ -1,5 +1,5 @@
 #include "CrouchWalk.h"
-#include "CharacterController.h"
+#include "../CharacterController.h"
 
 void CrouchWalk::update(const float dt) {
     handleInput(dt);

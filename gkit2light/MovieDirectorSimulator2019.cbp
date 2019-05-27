@@ -35,6 +35,7 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/gKit"/>
+					<Add directory="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim"/>
 					<Add directory="/usr/include/SDL2"/>
 				</Compiler>
 				<MakeCommands>
@@ -52,6 +53,7 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/gKit"/>
+					<Add directory="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim"/>
 					<Add directory="/usr/include/SDL2"/>
 				</Compiler>
 				<MakeCommands>
@@ -72,6 +74,141 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Animations/AnimState.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Animations/Crouch.cpp">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Animations/Crouch.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Animations/CrouchWalk.cpp">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Animations/CrouchWalk.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Animations/Dance.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Animations/Idle.cpp">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Animations/Idle.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Animations/Kick.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Animations/NonStopAnim.cpp">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Animations/NonStopAnim.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Animations/Run.cpp">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Animations/Run.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Animations/Smoke.cpp">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Animations/Smoke.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Animations/SmokeIdle.cpp">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Animations/SmokeIdle.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Animations/Walk.cpp">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Animations/Walk.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/BVH.cpp">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/BVH.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/BVHAxis.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/BVHChannel.cpp">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/BVHChannel.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/BVHJoint.cpp">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/BVHJoint.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/CharAnimViewer.cpp">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/CharAnimViewer.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/CharacterController.cpp">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/CharacterController.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/CubeController.cpp">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/CubeController.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Particle.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/PhysicalWorld.cpp">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/PhysicalWorld.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Skeleton.cpp">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Skeleton.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/TransformQ.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Viewer.cpp">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Viewer.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/ViewerBasic.cpp">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/ViewerBasic.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/main.cpp">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/GenericObject.cpp">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/GenericObject.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
 		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/MovieDirectorSimulator.cpp">
 			<Option target="MDS2019.exe"/>
 		</Unit>

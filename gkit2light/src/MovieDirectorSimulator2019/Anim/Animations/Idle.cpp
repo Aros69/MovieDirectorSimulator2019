@@ -1,5 +1,5 @@
 #include "Idle.h"
-#include "CharacterController.h"
+#include "../CharacterController.h"
 
 void Idle::update(const float dt) {
     handleInput(dt);

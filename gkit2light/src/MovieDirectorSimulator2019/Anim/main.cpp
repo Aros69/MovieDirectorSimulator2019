@@ -1,4 +1,4 @@
-#include "CharAnimViewer.h"
+/*#include "CharAnimViewer.h"
 
 using namespace std;
 
@@ -15,3 +15,4 @@ int main( int argc, char **argv )
 }
 
 #endif
+*/

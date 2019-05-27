@@ -1,7 +1,7 @@
 #ifndef GKIT2LIGHT_MASTER_CHARANIM_ANIMSTATE_H
 #define GKIT2LIGHT_MASTER_CHARANIM_ANIMSTATE_H
 
-#include <BVH.h>
+#include "../BVH.h"
 #include <mat.h>
 #include <window.h>
 

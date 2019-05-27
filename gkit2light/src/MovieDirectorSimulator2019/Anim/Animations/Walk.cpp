@@ -1,5 +1,5 @@
 #include "Walk.h"
-#include "CharacterController.h"
+#include "../CharacterController.h"
 
 void Walk::update(const float dt) {
     handleInput(dt);

@@ -1,5 +1,5 @@
 #include "SmokeIdle.h"
-#include "CharacterController.h"
+#include "../CharacterController.h"
 
 void SmokeIdle::update(const float dt) {
     handleInput(dt);

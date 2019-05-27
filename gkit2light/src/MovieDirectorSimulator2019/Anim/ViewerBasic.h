@@ -21,7 +21,8 @@ class ViewerBasic : public App
 public:
 	ViewerBasic();
 
-    //! Initialise tout : compile les shaders et construit le programme + les buffers + le vertex array. renvoie -1 en cas d'erreur.
+    //! Initialise tout : compile les shaders et construit le programme +
+    //! les buffers + le vertex array. renvoie -1 en cas d'erreur.
     int init();
 
     //! La fonction d'affichage

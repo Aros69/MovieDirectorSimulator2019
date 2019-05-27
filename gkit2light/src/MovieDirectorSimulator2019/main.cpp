@@ -187,8 +187,8 @@ int main( int argc, char **argv )
 int main() {
     std::cout << "Début de MDS 2019\n";
 
-    //MovieDirectorSimulator game;
-    //game.run();
+    MovieDirectorSimulator game;
+    game.run();
 
     std::cout << "Fin de MDS 2019\n";
     return 0;

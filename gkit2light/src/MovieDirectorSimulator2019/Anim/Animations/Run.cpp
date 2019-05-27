@@ -1,5 +1,5 @@
 #include "Run.h"
-#include "CharacterController.h"
+#include "../CharacterController.h"
 
 void Run::update(const float dt) {
     handleInput(dt);

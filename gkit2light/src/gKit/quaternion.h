@@ -27,7 +27,7 @@ along with gkit2light.  If not, see <http://www.gnu.org/licenses/>.
 #include <cmath>
 #include <iostream>
 #include <cstdlib>
-
+#include <vec.h>
 
 	/*! \brief A Quaternion class
 	 *

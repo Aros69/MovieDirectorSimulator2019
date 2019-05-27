@@ -1,5 +1,5 @@
 #include "NonStopAnim.h"
-#include "CharacterController.h"
+#include "../CharacterController.h"
 
 void NonStopAnim::update(const float dt) {
     handleInput(dt);
