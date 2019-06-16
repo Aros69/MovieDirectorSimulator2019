@@ -5,6 +5,7 @@
 #include <app.h>
 #include <mesh.h>
 #include <draw.h>
+#include <vector>
 #include "Anim/CharacterController.h"
 #include "Anim/Skeleton.h"
 #include "Anim/CubeController.h"
@@ -41,8 +42,9 @@ protected:
 
     CubeController cubeController;
 
-    Skeleton characterSkeleton;
-    CharacterController characterController;
+    std::vector<Skeleton> characterSkeleton;
+    std::vector<CharacterController> characterController;
+    const int num = 5;
 
     Orbiter m_camera;
     DrawParam gl;
@@ -72,11 +74,11 @@ protected:
 
     void manageCameraLight();
 
-    void draw_skeleton(const Skeleton &, const Transform offset);
+    void draw_skeleton(Vector v, const Skeleton &, const Transform offset);
 
-    void draw_character(const Skeleton &);
+    void draw_character(Vector v, const Skeleton &);
 
-    void draw_cylinder(const Point& a, const Point& b, float r = 1.f);
+    void draw_cylinder(Vector v, const Point& a, const Point& b, float r = 1.f);
 
    	void draw_cylinder(const Transform& T);
 

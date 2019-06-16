@@ -66,8 +66,15 @@ int MovieDirectorSimulator::init() {
     m_ske.init(m_bvh);
     m_ske.setPose(m_bvh, -1);// met le skeleton a la pose au repos
 
-    characterSkeleton.init(*characterController.getAnim());
-    characterSkeleton.setPose(*characterController.getAnim(), -1);
+
+    characterSkeleton = std::vector<Skeleton>(5);
+    characterController = std::vector<CharacterController>(5);
+
+    for(int i = 0; i < 5; i++) {
+    	characterSkeleton[i].init(*characterController[i].getAnim());
+    	characterSkeleton[i].setPose(*characterController[i].getAnim(), -1);
+    	
+	}
     return 1;
 }
 
@@ -86,30 +93,31 @@ void MovieDirectorSimulator::help() {
     printf("\tSouris mouvement vertical+bouton droit: (de)zoom\n");
 }
 
-void MovieDirectorSimulator::draw_skeleton(const Skeleton &, const Transform offset) {
+void MovieDirectorSimulator::draw_skeleton(Vector v, const Skeleton &, const Transform offset) {
 
     for (int i = 1; i < m_ske.numberOfJoint(); ++i) {
-        draw_cylinder(offset(m_ske.getJointPosition(i)),
+        draw_cylinder(v, offset(m_ske.getJointPosition(i)),
                       offset(m_ske.getJointPosition(m_ske.getParentId(i))), 1);
     }
 }
 
-void MovieDirectorSimulator::draw_character(const Skeleton &) {
-    for (int i = 1; i < characterSkeleton.numberOfJoint(); ++i) {
-        Transform animCorrection = *characterController.getAnimCorrection();
-        Point point1 = (characterController.getMatChar() * animCorrection)(
-                characterSkeleton.getJointPosition(i));
-        Point point2 = (characterController.getMatChar() * animCorrection)(
-                characterSkeleton.getJointPosition(
-                        characterSkeleton.getParentId(i)));
-        draw_cylinder(point1/10, point2/10, 0.5);
-    }
+void MovieDirectorSimulator::draw_character(Vector v, const Skeleton &) {
+	for(int j = 0; j < 5; j++) {
+	    for (int i = 1; i < characterSkeleton[j].numberOfJoint(); ++i) {
+	        Transform animCorrection = *characterController[j].getAnimCorrection();
+	        Point point1 = (characterController[j].getMatChar() * animCorrection)(
+	                characterSkeleton[j].getJointPosition(i));
+	        Point point2 = (characterController[j].getMatChar() * animCorrection)(
+	                characterSkeleton[j].getJointPosition(
+	                        characterSkeleton[j].getParentId(i)));
+	        draw_cylinder(v, point1/10, point2/10, 0.1);
+	    }
+	}
 }
 
 void MovieDirectorSimulator::draw_cylinder(const Transform &T) {
     gl.model(T);
     gl.draw(m_cylinder);
-
     Transform Tch = T * Translation(0, 1, 0);
     gl.model(Tch);
     gl.draw(m_cylinder_cover);
@@ -121,7 +129,7 @@ void MovieDirectorSimulator::draw_cylinder(const Transform &T) {
 }
 
 
-void MovieDirectorSimulator::draw_cylinder(const Point &a, const Point &b, float r) {
+void MovieDirectorSimulator::draw_cylinder(Vector v, const Point &a, const Point &b, float r) {
     Vector ab = b - a;
     Vector p, y, z;
     Vector abn = normalize(ab);
@@ -135,13 +143,33 @@ void MovieDirectorSimulator::draw_cylinder(const Point &a, const Point &b, float
     y = cross(abn, p);
     y = normalize(y);
     z = cross(abn, y);
-    Transform T(z, abn, y, Vector(0, 0, 0));
+    //Transform T(z, abn, y, Vector(0, 0, 0));
+    Transform T(z, abn, y, v);
+    /*
+    for(int i = 0; i < 5; i++){
+    	if(i == 0) {
+    		Transform T(z, abn, y,Vector(5, 0, -5));
+    	 	draw_cylinder(Translation(Vector(a)) * T * Scale(r, lab, r));
+    	}else if (i == 1) {
+    		Transform T(z, abn, y,Vector(10, 0, 0));
+    	 	draw_cylinder(Translation(Vector(a)) * T * Scale(r, lab, r));
+    	}else if (i == 2) {
+    		Transform T(z, abn, y,Vector(0, 0, 0));
+    	 	draw_cylinder(Translation(Vector(a)) * T * Scale(r, lab, r));
+    	}else if (i == 3) {
+    		Transform T(z, abn, y,Vector(-7, 0, 3));
+    	 	draw_cylinder(Translation(Vector(a)) * T * Scale(r, lab, r));
+    	}
+    }
+	*/
+
     //cout << T[0] << endl;
     //cout << T[1] << endl;
     //cout << T[2] << endl;
     //cout << T[3] << endl;
 
     draw_cylinder(Translation(Vector(a)) * T * Scale(r, lab, r));
+
 }
 
 void MovieDirectorSimulator::draw_sphere(const Point &a, float r) {
@@ -171,8 +199,13 @@ int MovieDirectorSimulator::render() {
     // donne notre camera au shader
     gl.camera(m_camera);
 
-    // Affiche le personnage Controlle
-    draw_character(characterSkeleton);
+    // Affiche le personnage principal
+    
+    for(int i = 0; i < 5; i++) {
+		draw_character(Vector(i*3, 0, i+2), characterSkeleton[i]);
+    }
+    
+
 /*
     gl.lighting(true);
     gl.texture(0);
@@ -483,10 +516,13 @@ int MovieDirectorSimulator::update(const float time, const float delta) {
     }
     m_ske.setPose(m_bvh, m_frameNumber);
 
-    cubeController.update(delta / 1000);
-    characterController.update(delta / 1000);
-    characterSkeleton.setPose(*characterController.getAnim(),
-                              characterController.getFrameAnim());
+    for(int i = 0; i < 5; i++) {
+    	cubeController.update(delta / 1000);
+    	characterController[i].update(delta / 1000);
+    	characterSkeleton[i].setPose(*characterController[i].getAnim(),
+                              characterController[i].getFrameAnim());
+
+    }
 
     m_world.update(0.1f);
     return 0;
