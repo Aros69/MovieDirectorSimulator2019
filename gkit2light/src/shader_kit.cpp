@@ -1,5 +1,4 @@
-
-//! \file shader_kit.cpp shader_kit light, bac a sable fragment shader, cf shader_toy 
+//! \file shader_kit.cpp shader_kit light, bac a sable fragment shader, cf shader_toy
 
 #include <cstdio>
 #include <cstring>

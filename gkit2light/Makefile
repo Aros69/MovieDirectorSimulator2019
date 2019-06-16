@@ -123,6 +123,19 @@ MDS2019.exe/fast:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/build
 .PHONY : MDS2019.exe/fast
 
+#=============================================================================
+# Target rules for targets named shaderKit.exe
+
+# Build rule for target.
+shaderKit.exe: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 shaderKit.exe
+.PHONY : shaderKit.exe
+
+# fast build rule for target.
+shaderKit.exe/fast:
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/build
+.PHONY : shaderKit.exe/fast
+
 src/MovieDirectorSimulator2019/Anim/Animations/Crouch.o: src/MovieDirectorSimulator2019/Anim/Animations/Crouch.cpp.o
 
 .PHONY : src/MovieDirectorSimulator2019/Anim/Animations/Crouch.o
@@ -636,6 +649,33 @@ src/MovieDirectorSimulator2019/Anim/main.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/MovieDirectorSimulator2019/Anim/main.cpp.s
 .PHONY : src/MovieDirectorSimulator2019/Anim/main.cpp.s
 
+src/MovieDirectorSimulator2019/BasicDrawObject.o: src/MovieDirectorSimulator2019/BasicDrawObject.cpp.o
+
+.PHONY : src/MovieDirectorSimulator2019/BasicDrawObject.o
+
+# target to build an object file
+src/MovieDirectorSimulator2019/BasicDrawObject.cpp.o:
+	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/MovieDirectorSimulator2019/BasicDrawObject.cpp.o
+.PHONY : src/MovieDirectorSimulator2019/BasicDrawObject.cpp.o
+
+src/MovieDirectorSimulator2019/BasicDrawObject.i: src/MovieDirectorSimulator2019/BasicDrawObject.cpp.i
+
+.PHONY : src/MovieDirectorSimulator2019/BasicDrawObject.i
+
+# target to preprocess a source file
+src/MovieDirectorSimulator2019/BasicDrawObject.cpp.i:
+	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/MovieDirectorSimulator2019/BasicDrawObject.cpp.i
+.PHONY : src/MovieDirectorSimulator2019/BasicDrawObject.cpp.i
+
+src/MovieDirectorSimulator2019/BasicDrawObject.s: src/MovieDirectorSimulator2019/BasicDrawObject.cpp.s
+
+.PHONY : src/MovieDirectorSimulator2019/BasicDrawObject.s
+
+# target to generate assembly for a file
+src/MovieDirectorSimulator2019/BasicDrawObject.cpp.s:
+	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/MovieDirectorSimulator2019/BasicDrawObject.cpp.s
+.PHONY : src/MovieDirectorSimulator2019/BasicDrawObject.cpp.s
+
 src/MovieDirectorSimulator2019/DirectorCamera.o: src/MovieDirectorSimulator2019/DirectorCamera.cpp.o
 
 .PHONY : src/MovieDirectorSimulator2019/DirectorCamera.o
@@ -662,6 +702,33 @@ src/MovieDirectorSimulator2019/DirectorCamera.s: src/MovieDirectorSimulator2019/
 src/MovieDirectorSimulator2019/DirectorCamera.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/MovieDirectorSimulator2019/DirectorCamera.cpp.s
 .PHONY : src/MovieDirectorSimulator2019/DirectorCamera.cpp.s
+
+src/MovieDirectorSimulator2019/Ground.o: src/MovieDirectorSimulator2019/Ground.cpp.o
+
+.PHONY : src/MovieDirectorSimulator2019/Ground.o
+
+# target to build an object file
+src/MovieDirectorSimulator2019/Ground.cpp.o:
+	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/MovieDirectorSimulator2019/Ground.cpp.o
+.PHONY : src/MovieDirectorSimulator2019/Ground.cpp.o
+
+src/MovieDirectorSimulator2019/Ground.i: src/MovieDirectorSimulator2019/Ground.cpp.i
+
+.PHONY : src/MovieDirectorSimulator2019/Ground.i
+
+# target to preprocess a source file
+src/MovieDirectorSimulator2019/Ground.cpp.i:
+	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/MovieDirectorSimulator2019/Ground.cpp.i
+.PHONY : src/MovieDirectorSimulator2019/Ground.cpp.i
+
+src/MovieDirectorSimulator2019/Ground.s: src/MovieDirectorSimulator2019/Ground.cpp.s
+
+.PHONY : src/MovieDirectorSimulator2019/Ground.s
+
+# target to generate assembly for a file
+src/MovieDirectorSimulator2019/Ground.cpp.s:
+	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/MovieDirectorSimulator2019/Ground.cpp.s
+.PHONY : src/MovieDirectorSimulator2019/Ground.cpp.s
 
 src/MovieDirectorSimulator2019/MovieDirectorSimulator.o: src/MovieDirectorSimulator2019/MovieDirectorSimulator.cpp.o
 
@@ -724,6 +791,7 @@ src/gKit/app.o: src/gKit/app.cpp.o
 # target to build an object file
 src/gKit/app.cpp.o:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/app.cpp.o
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/app.cpp.o
 .PHONY : src/gKit/app.cpp.o
 
 src/gKit/app.i: src/gKit/app.cpp.i
@@ -733,6 +801,7 @@ src/gKit/app.i: src/gKit/app.cpp.i
 # target to preprocess a source file
 src/gKit/app.cpp.i:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/app.cpp.i
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/app.cpp.i
 .PHONY : src/gKit/app.cpp.i
 
 src/gKit/app.s: src/gKit/app.cpp.s
@@ -742,6 +811,7 @@ src/gKit/app.s: src/gKit/app.cpp.s
 # target to generate assembly for a file
 src/gKit/app.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/app.cpp.s
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/app.cpp.s
 .PHONY : src/gKit/app.cpp.s
 
 src/gKit/app_camera.o: src/gKit/app_camera.cpp.o
@@ -751,6 +821,7 @@ src/gKit/app_camera.o: src/gKit/app_camera.cpp.o
 # target to build an object file
 src/gKit/app_camera.cpp.o:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/app_camera.cpp.o
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/app_camera.cpp.o
 .PHONY : src/gKit/app_camera.cpp.o
 
 src/gKit/app_camera.i: src/gKit/app_camera.cpp.i
@@ -760,6 +831,7 @@ src/gKit/app_camera.i: src/gKit/app_camera.cpp.i
 # target to preprocess a source file
 src/gKit/app_camera.cpp.i:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/app_camera.cpp.i
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/app_camera.cpp.i
 .PHONY : src/gKit/app_camera.cpp.i
 
 src/gKit/app_camera.s: src/gKit/app_camera.cpp.s
@@ -769,6 +841,7 @@ src/gKit/app_camera.s: src/gKit/app_camera.cpp.s
 # target to generate assembly for a file
 src/gKit/app_camera.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/app_camera.cpp.s
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/app_camera.cpp.s
 .PHONY : src/gKit/app_camera.cpp.s
 
 src/gKit/app_time.o: src/gKit/app_time.cpp.o
@@ -778,6 +851,7 @@ src/gKit/app_time.o: src/gKit/app_time.cpp.o
 # target to build an object file
 src/gKit/app_time.cpp.o:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/app_time.cpp.o
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/app_time.cpp.o
 .PHONY : src/gKit/app_time.cpp.o
 
 src/gKit/app_time.i: src/gKit/app_time.cpp.i
@@ -787,6 +861,7 @@ src/gKit/app_time.i: src/gKit/app_time.cpp.i
 # target to preprocess a source file
 src/gKit/app_time.cpp.i:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/app_time.cpp.i
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/app_time.cpp.i
 .PHONY : src/gKit/app_time.cpp.i
 
 src/gKit/app_time.s: src/gKit/app_time.cpp.s
@@ -796,6 +871,7 @@ src/gKit/app_time.s: src/gKit/app_time.cpp.s
 # target to generate assembly for a file
 src/gKit/app_time.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/app_time.cpp.s
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/app_time.cpp.s
 .PHONY : src/gKit/app_time.cpp.s
 
 src/gKit/color.o: src/gKit/color.cpp.o
@@ -805,6 +881,7 @@ src/gKit/color.o: src/gKit/color.cpp.o
 # target to build an object file
 src/gKit/color.cpp.o:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/color.cpp.o
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/color.cpp.o
 .PHONY : src/gKit/color.cpp.o
 
 src/gKit/color.i: src/gKit/color.cpp.i
@@ -814,6 +891,7 @@ src/gKit/color.i: src/gKit/color.cpp.i
 # target to preprocess a source file
 src/gKit/color.cpp.i:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/color.cpp.i
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/color.cpp.i
 .PHONY : src/gKit/color.cpp.i
 
 src/gKit/color.s: src/gKit/color.cpp.s
@@ -823,6 +901,7 @@ src/gKit/color.s: src/gKit/color.cpp.s
 # target to generate assembly for a file
 src/gKit/color.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/color.cpp.s
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/color.cpp.s
 .PHONY : src/gKit/color.cpp.s
 
 src/gKit/draw.o: src/gKit/draw.cpp.o
@@ -832,6 +911,7 @@ src/gKit/draw.o: src/gKit/draw.cpp.o
 # target to build an object file
 src/gKit/draw.cpp.o:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/draw.cpp.o
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/draw.cpp.o
 .PHONY : src/gKit/draw.cpp.o
 
 src/gKit/draw.i: src/gKit/draw.cpp.i
@@ -841,6 +921,7 @@ src/gKit/draw.i: src/gKit/draw.cpp.i
 # target to preprocess a source file
 src/gKit/draw.cpp.i:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/draw.cpp.i
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/draw.cpp.i
 .PHONY : src/gKit/draw.cpp.i
 
 src/gKit/draw.s: src/gKit/draw.cpp.s
@@ -850,6 +931,7 @@ src/gKit/draw.s: src/gKit/draw.cpp.s
 # target to generate assembly for a file
 src/gKit/draw.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/draw.cpp.s
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/draw.cpp.s
 .PHONY : src/gKit/draw.cpp.s
 
 src/gKit/gamepads.o: src/gKit/gamepads.cpp.o
@@ -859,6 +941,7 @@ src/gKit/gamepads.o: src/gKit/gamepads.cpp.o
 # target to build an object file
 src/gKit/gamepads.cpp.o:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/gamepads.cpp.o
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/gamepads.cpp.o
 .PHONY : src/gKit/gamepads.cpp.o
 
 src/gKit/gamepads.i: src/gKit/gamepads.cpp.i
@@ -868,6 +951,7 @@ src/gKit/gamepads.i: src/gKit/gamepads.cpp.i
 # target to preprocess a source file
 src/gKit/gamepads.cpp.i:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/gamepads.cpp.i
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/gamepads.cpp.i
 .PHONY : src/gKit/gamepads.cpp.i
 
 src/gKit/gamepads.s: src/gKit/gamepads.cpp.s
@@ -877,6 +961,7 @@ src/gKit/gamepads.s: src/gKit/gamepads.cpp.s
 # target to generate assembly for a file
 src/gKit/gamepads.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/gamepads.cpp.s
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/gamepads.cpp.s
 .PHONY : src/gKit/gamepads.cpp.s
 
 src/gKit/image.o: src/gKit/image.cpp.o
@@ -886,6 +971,7 @@ src/gKit/image.o: src/gKit/image.cpp.o
 # target to build an object file
 src/gKit/image.cpp.o:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/image.cpp.o
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/image.cpp.o
 .PHONY : src/gKit/image.cpp.o
 
 src/gKit/image.i: src/gKit/image.cpp.i
@@ -895,6 +981,7 @@ src/gKit/image.i: src/gKit/image.cpp.i
 # target to preprocess a source file
 src/gKit/image.cpp.i:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/image.cpp.i
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/image.cpp.i
 .PHONY : src/gKit/image.cpp.i
 
 src/gKit/image.s: src/gKit/image.cpp.s
@@ -904,6 +991,7 @@ src/gKit/image.s: src/gKit/image.cpp.s
 # target to generate assembly for a file
 src/gKit/image.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/image.cpp.s
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/image.cpp.s
 .PHONY : src/gKit/image.cpp.s
 
 src/gKit/image_hdr.o: src/gKit/image_hdr.cpp.o
@@ -913,6 +1001,7 @@ src/gKit/image_hdr.o: src/gKit/image_hdr.cpp.o
 # target to build an object file
 src/gKit/image_hdr.cpp.o:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/image_hdr.cpp.o
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/image_hdr.cpp.o
 .PHONY : src/gKit/image_hdr.cpp.o
 
 src/gKit/image_hdr.i: src/gKit/image_hdr.cpp.i
@@ -922,6 +1011,7 @@ src/gKit/image_hdr.i: src/gKit/image_hdr.cpp.i
 # target to preprocess a source file
 src/gKit/image_hdr.cpp.i:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/image_hdr.cpp.i
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/image_hdr.cpp.i
 .PHONY : src/gKit/image_hdr.cpp.i
 
 src/gKit/image_hdr.s: src/gKit/image_hdr.cpp.s
@@ -931,6 +1021,7 @@ src/gKit/image_hdr.s: src/gKit/image_hdr.cpp.s
 # target to generate assembly for a file
 src/gKit/image_hdr.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/image_hdr.cpp.s
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/image_hdr.cpp.s
 .PHONY : src/gKit/image_hdr.cpp.s
 
 src/gKit/image_io.o: src/gKit/image_io.cpp.o
@@ -940,6 +1031,7 @@ src/gKit/image_io.o: src/gKit/image_io.cpp.o
 # target to build an object file
 src/gKit/image_io.cpp.o:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/image_io.cpp.o
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/image_io.cpp.o
 .PHONY : src/gKit/image_io.cpp.o
 
 src/gKit/image_io.i: src/gKit/image_io.cpp.i
@@ -949,6 +1041,7 @@ src/gKit/image_io.i: src/gKit/image_io.cpp.i
 # target to preprocess a source file
 src/gKit/image_io.cpp.i:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/image_io.cpp.i
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/image_io.cpp.i
 .PHONY : src/gKit/image_io.cpp.i
 
 src/gKit/image_io.s: src/gKit/image_io.cpp.s
@@ -958,6 +1051,7 @@ src/gKit/image_io.s: src/gKit/image_io.cpp.s
 # target to generate assembly for a file
 src/gKit/image_io.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/image_io.cpp.s
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/image_io.cpp.s
 .PHONY : src/gKit/image_io.cpp.s
 
 src/gKit/mat.o: src/gKit/mat.cpp.o
@@ -967,6 +1061,7 @@ src/gKit/mat.o: src/gKit/mat.cpp.o
 # target to build an object file
 src/gKit/mat.cpp.o:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/mat.cpp.o
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/mat.cpp.o
 .PHONY : src/gKit/mat.cpp.o
 
 src/gKit/mat.i: src/gKit/mat.cpp.i
@@ -976,6 +1071,7 @@ src/gKit/mat.i: src/gKit/mat.cpp.i
 # target to preprocess a source file
 src/gKit/mat.cpp.i:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/mat.cpp.i
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/mat.cpp.i
 .PHONY : src/gKit/mat.cpp.i
 
 src/gKit/mat.s: src/gKit/mat.cpp.s
@@ -985,6 +1081,7 @@ src/gKit/mat.s: src/gKit/mat.cpp.s
 # target to generate assembly for a file
 src/gKit/mat.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/mat.cpp.s
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/mat.cpp.s
 .PHONY : src/gKit/mat.cpp.s
 
 src/gKit/mesh.o: src/gKit/mesh.cpp.o
@@ -994,6 +1091,7 @@ src/gKit/mesh.o: src/gKit/mesh.cpp.o
 # target to build an object file
 src/gKit/mesh.cpp.o:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/mesh.cpp.o
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/mesh.cpp.o
 .PHONY : src/gKit/mesh.cpp.o
 
 src/gKit/mesh.i: src/gKit/mesh.cpp.i
@@ -1003,6 +1101,7 @@ src/gKit/mesh.i: src/gKit/mesh.cpp.i
 # target to preprocess a source file
 src/gKit/mesh.cpp.i:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/mesh.cpp.i
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/mesh.cpp.i
 .PHONY : src/gKit/mesh.cpp.i
 
 src/gKit/mesh.s: src/gKit/mesh.cpp.s
@@ -1012,6 +1111,7 @@ src/gKit/mesh.s: src/gKit/mesh.cpp.s
 # target to generate assembly for a file
 src/gKit/mesh.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/mesh.cpp.s
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/mesh.cpp.s
 .PHONY : src/gKit/mesh.cpp.s
 
 src/gKit/orbiter.o: src/gKit/orbiter.cpp.o
@@ -1021,6 +1121,7 @@ src/gKit/orbiter.o: src/gKit/orbiter.cpp.o
 # target to build an object file
 src/gKit/orbiter.cpp.o:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/orbiter.cpp.o
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/orbiter.cpp.o
 .PHONY : src/gKit/orbiter.cpp.o
 
 src/gKit/orbiter.i: src/gKit/orbiter.cpp.i
@@ -1030,6 +1131,7 @@ src/gKit/orbiter.i: src/gKit/orbiter.cpp.i
 # target to preprocess a source file
 src/gKit/orbiter.cpp.i:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/orbiter.cpp.i
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/orbiter.cpp.i
 .PHONY : src/gKit/orbiter.cpp.i
 
 src/gKit/orbiter.s: src/gKit/orbiter.cpp.s
@@ -1039,6 +1141,7 @@ src/gKit/orbiter.s: src/gKit/orbiter.cpp.s
 # target to generate assembly for a file
 src/gKit/orbiter.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/orbiter.cpp.s
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/orbiter.cpp.s
 .PHONY : src/gKit/orbiter.cpp.s
 
 src/gKit/program.o: src/gKit/program.cpp.o
@@ -1048,6 +1151,7 @@ src/gKit/program.o: src/gKit/program.cpp.o
 # target to build an object file
 src/gKit/program.cpp.o:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/program.cpp.o
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/program.cpp.o
 .PHONY : src/gKit/program.cpp.o
 
 src/gKit/program.i: src/gKit/program.cpp.i
@@ -1057,6 +1161,7 @@ src/gKit/program.i: src/gKit/program.cpp.i
 # target to preprocess a source file
 src/gKit/program.cpp.i:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/program.cpp.i
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/program.cpp.i
 .PHONY : src/gKit/program.cpp.i
 
 src/gKit/program.s: src/gKit/program.cpp.s
@@ -1066,6 +1171,7 @@ src/gKit/program.s: src/gKit/program.cpp.s
 # target to generate assembly for a file
 src/gKit/program.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/program.cpp.s
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/program.cpp.s
 .PHONY : src/gKit/program.cpp.s
 
 src/gKit/rgbe.o: src/gKit/rgbe.cpp.o
@@ -1075,6 +1181,7 @@ src/gKit/rgbe.o: src/gKit/rgbe.cpp.o
 # target to build an object file
 src/gKit/rgbe.cpp.o:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/rgbe.cpp.o
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/rgbe.cpp.o
 .PHONY : src/gKit/rgbe.cpp.o
 
 src/gKit/rgbe.i: src/gKit/rgbe.cpp.i
@@ -1084,6 +1191,7 @@ src/gKit/rgbe.i: src/gKit/rgbe.cpp.i
 # target to preprocess a source file
 src/gKit/rgbe.cpp.i:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/rgbe.cpp.i
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/rgbe.cpp.i
 .PHONY : src/gKit/rgbe.cpp.i
 
 src/gKit/rgbe.s: src/gKit/rgbe.cpp.s
@@ -1093,6 +1201,7 @@ src/gKit/rgbe.s: src/gKit/rgbe.cpp.s
 # target to generate assembly for a file
 src/gKit/rgbe.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/rgbe.cpp.s
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/rgbe.cpp.s
 .PHONY : src/gKit/rgbe.cpp.s
 
 src/gKit/text.o: src/gKit/text.cpp.o
@@ -1102,6 +1211,7 @@ src/gKit/text.o: src/gKit/text.cpp.o
 # target to build an object file
 src/gKit/text.cpp.o:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/text.cpp.o
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/text.cpp.o
 .PHONY : src/gKit/text.cpp.o
 
 src/gKit/text.i: src/gKit/text.cpp.i
@@ -1111,6 +1221,7 @@ src/gKit/text.i: src/gKit/text.cpp.i
 # target to preprocess a source file
 src/gKit/text.cpp.i:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/text.cpp.i
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/text.cpp.i
 .PHONY : src/gKit/text.cpp.i
 
 src/gKit/text.s: src/gKit/text.cpp.s
@@ -1120,6 +1231,7 @@ src/gKit/text.s: src/gKit/text.cpp.s
 # target to generate assembly for a file
 src/gKit/text.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/text.cpp.s
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/text.cpp.s
 .PHONY : src/gKit/text.cpp.s
 
 src/gKit/texture.o: src/gKit/texture.cpp.o
@@ -1129,6 +1241,7 @@ src/gKit/texture.o: src/gKit/texture.cpp.o
 # target to build an object file
 src/gKit/texture.cpp.o:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/texture.cpp.o
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/texture.cpp.o
 .PHONY : src/gKit/texture.cpp.o
 
 src/gKit/texture.i: src/gKit/texture.cpp.i
@@ -1138,6 +1251,7 @@ src/gKit/texture.i: src/gKit/texture.cpp.i
 # target to preprocess a source file
 src/gKit/texture.cpp.i:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/texture.cpp.i
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/texture.cpp.i
 .PHONY : src/gKit/texture.cpp.i
 
 src/gKit/texture.s: src/gKit/texture.cpp.s
@@ -1147,6 +1261,7 @@ src/gKit/texture.s: src/gKit/texture.cpp.s
 # target to generate assembly for a file
 src/gKit/texture.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/texture.cpp.s
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/texture.cpp.s
 .PHONY : src/gKit/texture.cpp.s
 
 src/gKit/uniforms.o: src/gKit/uniforms.cpp.o
@@ -1156,6 +1271,7 @@ src/gKit/uniforms.o: src/gKit/uniforms.cpp.o
 # target to build an object file
 src/gKit/uniforms.cpp.o:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/uniforms.cpp.o
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/uniforms.cpp.o
 .PHONY : src/gKit/uniforms.cpp.o
 
 src/gKit/uniforms.i: src/gKit/uniforms.cpp.i
@@ -1165,6 +1281,7 @@ src/gKit/uniforms.i: src/gKit/uniforms.cpp.i
 # target to preprocess a source file
 src/gKit/uniforms.cpp.i:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/uniforms.cpp.i
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/uniforms.cpp.i
 .PHONY : src/gKit/uniforms.cpp.i
 
 src/gKit/uniforms.s: src/gKit/uniforms.cpp.s
@@ -1174,6 +1291,7 @@ src/gKit/uniforms.s: src/gKit/uniforms.cpp.s
 # target to generate assembly for a file
 src/gKit/uniforms.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/uniforms.cpp.s
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/uniforms.cpp.s
 .PHONY : src/gKit/uniforms.cpp.s
 
 src/gKit/vec.o: src/gKit/vec.cpp.o
@@ -1183,6 +1301,7 @@ src/gKit/vec.o: src/gKit/vec.cpp.o
 # target to build an object file
 src/gKit/vec.cpp.o:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/vec.cpp.o
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/vec.cpp.o
 .PHONY : src/gKit/vec.cpp.o
 
 src/gKit/vec.i: src/gKit/vec.cpp.i
@@ -1192,6 +1311,7 @@ src/gKit/vec.i: src/gKit/vec.cpp.i
 # target to preprocess a source file
 src/gKit/vec.cpp.i:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/vec.cpp.i
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/vec.cpp.i
 .PHONY : src/gKit/vec.cpp.i
 
 src/gKit/vec.s: src/gKit/vec.cpp.s
@@ -1201,6 +1321,7 @@ src/gKit/vec.s: src/gKit/vec.cpp.s
 # target to generate assembly for a file
 src/gKit/vec.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/vec.cpp.s
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/vec.cpp.s
 .PHONY : src/gKit/vec.cpp.s
 
 src/gKit/wavefront.o: src/gKit/wavefront.cpp.o
@@ -1210,6 +1331,7 @@ src/gKit/wavefront.o: src/gKit/wavefront.cpp.o
 # target to build an object file
 src/gKit/wavefront.cpp.o:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/wavefront.cpp.o
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/wavefront.cpp.o
 .PHONY : src/gKit/wavefront.cpp.o
 
 src/gKit/wavefront.i: src/gKit/wavefront.cpp.i
@@ -1219,6 +1341,7 @@ src/gKit/wavefront.i: src/gKit/wavefront.cpp.i
 # target to preprocess a source file
 src/gKit/wavefront.cpp.i:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/wavefront.cpp.i
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/wavefront.cpp.i
 .PHONY : src/gKit/wavefront.cpp.i
 
 src/gKit/wavefront.s: src/gKit/wavefront.cpp.s
@@ -1228,6 +1351,7 @@ src/gKit/wavefront.s: src/gKit/wavefront.cpp.s
 # target to generate assembly for a file
 src/gKit/wavefront.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/wavefront.cpp.s
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/wavefront.cpp.s
 .PHONY : src/gKit/wavefront.cpp.s
 
 src/gKit/widgets.o: src/gKit/widgets.cpp.o
@@ -1237,6 +1361,7 @@ src/gKit/widgets.o: src/gKit/widgets.cpp.o
 # target to build an object file
 src/gKit/widgets.cpp.o:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/widgets.cpp.o
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/widgets.cpp.o
 .PHONY : src/gKit/widgets.cpp.o
 
 src/gKit/widgets.i: src/gKit/widgets.cpp.i
@@ -1246,6 +1371,7 @@ src/gKit/widgets.i: src/gKit/widgets.cpp.i
 # target to preprocess a source file
 src/gKit/widgets.cpp.i:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/widgets.cpp.i
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/widgets.cpp.i
 .PHONY : src/gKit/widgets.cpp.i
 
 src/gKit/widgets.s: src/gKit/widgets.cpp.s
@@ -1255,6 +1381,7 @@ src/gKit/widgets.s: src/gKit/widgets.cpp.s
 # target to generate assembly for a file
 src/gKit/widgets.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/widgets.cpp.s
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/widgets.cpp.s
 .PHONY : src/gKit/widgets.cpp.s
 
 src/gKit/window.o: src/gKit/window.cpp.o
@@ -1264,6 +1391,7 @@ src/gKit/window.o: src/gKit/window.cpp.o
 # target to build an object file
 src/gKit/window.cpp.o:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/window.cpp.o
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/window.cpp.o
 .PHONY : src/gKit/window.cpp.o
 
 src/gKit/window.i: src/gKit/window.cpp.i
@@ -1273,6 +1401,7 @@ src/gKit/window.i: src/gKit/window.cpp.i
 # target to preprocess a source file
 src/gKit/window.cpp.i:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/window.cpp.i
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/window.cpp.i
 .PHONY : src/gKit/window.cpp.i
 
 src/gKit/window.s: src/gKit/window.cpp.s
@@ -1282,7 +1411,35 @@ src/gKit/window.s: src/gKit/window.cpp.s
 # target to generate assembly for a file
 src/gKit/window.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/gKit/window.cpp.s
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/gKit/window.cpp.s
 .PHONY : src/gKit/window.cpp.s
+
+src/shader_kit.o: src/shader_kit.cpp.o
+
+.PHONY : src/shader_kit.o
+
+# target to build an object file
+src/shader_kit.cpp.o:
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/shader_kit.cpp.o
+.PHONY : src/shader_kit.cpp.o
+
+src/shader_kit.i: src/shader_kit.cpp.i
+
+.PHONY : src/shader_kit.i
+
+# target to preprocess a source file
+src/shader_kit.cpp.i:
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/shader_kit.cpp.i
+.PHONY : src/shader_kit.cpp.i
+
+src/shader_kit.s: src/shader_kit.cpp.s
+
+.PHONY : src/shader_kit.s
+
+# target to generate assembly for a file
+src/shader_kit.cpp.s:
+	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/src/shader_kit.cpp.s
+.PHONY : src/shader_kit.cpp.s
 
 # Help Target
 help:
@@ -1291,8 +1448,9 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... MDS2019.exe"
 	@echo "... edit_cache"
+	@echo "... MDS2019.exe"
+	@echo "... shaderKit.exe"
 	@echo "... src/MovieDirectorSimulator2019/Anim/Animations/Crouch.o"
 	@echo "... src/MovieDirectorSimulator2019/Anim/Animations/Crouch.i"
 	@echo "... src/MovieDirectorSimulator2019/Anim/Animations/Crouch.s"
@@ -1350,9 +1508,15 @@ help:
 	@echo "... src/MovieDirectorSimulator2019/Anim/main.o"
 	@echo "... src/MovieDirectorSimulator2019/Anim/main.i"
 	@echo "... src/MovieDirectorSimulator2019/Anim/main.s"
+	@echo "... src/MovieDirectorSimulator2019/BasicDrawObject.o"
+	@echo "... src/MovieDirectorSimulator2019/BasicDrawObject.i"
+	@echo "... src/MovieDirectorSimulator2019/BasicDrawObject.s"
 	@echo "... src/MovieDirectorSimulator2019/DirectorCamera.o"
 	@echo "... src/MovieDirectorSimulator2019/DirectorCamera.i"
 	@echo "... src/MovieDirectorSimulator2019/DirectorCamera.s"
+	@echo "... src/MovieDirectorSimulator2019/Ground.o"
+	@echo "... src/MovieDirectorSimulator2019/Ground.i"
+	@echo "... src/MovieDirectorSimulator2019/Ground.s"
 	@echo "... src/MovieDirectorSimulator2019/MovieDirectorSimulator.o"
 	@echo "... src/MovieDirectorSimulator2019/MovieDirectorSimulator.i"
 	@echo "... src/MovieDirectorSimulator2019/MovieDirectorSimulator.s"
@@ -1422,6 +1586,9 @@ help:
 	@echo "... src/gKit/window.o"
 	@echo "... src/gKit/window.i"
 	@echo "... src/gKit/window.s"
+	@echo "... src/shader_kit.o"
+	@echo "... src/shader_kit.i"
+	@echo "... src/shader_kit.s"
 .PHONY : help
 
 

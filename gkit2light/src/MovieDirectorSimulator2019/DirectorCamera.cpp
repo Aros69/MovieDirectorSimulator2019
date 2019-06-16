@@ -1,46 +1,55 @@
 #include "DirectorCamera.h"
 
-DirectorCamera::DirectorCamera(Vector position, Vector rotation, Vector scale,
-                               int distViewMax) {
-    _position = position;
-    _rotation = rotation;
-    _scale = scale;
+DirectorCamera::DirectorCamera(Transform matrix, int distViewMax) {
+    baseMatrix = matrix;
+    XRotation = RotationY(0);
     distMax = distViewMax;
-    init_quad();
+    shaderProgram = read_program("data/shaders/shaderCamera.glsl");
+    program_print_errors(shaderProgram);
+    init_cameraView();
 }
 
-void DirectorCamera::init_quad() {
-    quadMesh = Mesh(GL_TRIANGLE_STRIP);
-    quadMesh.color(Color(1, 1, 1));
-
-    quadMesh.normal(0, 0, 1);
-
-    quadMesh.texcoord(0, 0);
-    quadMesh.vertex(-1, -1, 0);
-
-    quadMesh.texcoord(1, 0);
-    quadMesh.vertex(1, -1, 0);
-
-    quadMesh.texcoord(0, 1);
-    quadMesh.vertex(-1, 1, 0);
-
-    quadMesh.texcoord(1, 1);
-    quadMesh.vertex(1, 1, 0);
+DirectorCamera::~DirectorCamera() {
+    release_program(shaderProgram);
 }
 
-void DirectorCamera::draw() {
-    gl->lighting(true);
-    gl->texture(0);
-    gl->model(Translation(_position) * RotationX(_rotation.x)
-             * RotationY(_rotation.y) * RotationZ(_rotation.z)
-             * Scale(_scale.x, _scale.y, _scale.z));
-    gl->draw(quadMesh);
+void DirectorCamera::init_cameraView() {
+    /*Point *pMin = new Point(-100, -100, -100);
+    Point *pMax = new Point(100, 100, 100);
+    cameraViewMesh.bounds(*pMin, *pMax);*/
+    cameraViewMesh = Mesh(GL_TRIANGLE_STRIP);
+    cameraViewMesh.color(Color(1, 1, 1));
+    cameraViewMesh.normal(0, 0, 1);
+    // Init first square of the view (small one)
+    cameraViewMesh.vertex(-1, -1, 0);
+    cameraViewMesh.vertex(1, -1, 0);
+    cameraViewMesh.vertex(-1, 1, 0);
+    cameraViewMesh.vertex(1, 1, 0);
 
-    Vector posMax(_position.x, _position.y, _position.z + distMax);
-    Vector scaleMax(_scale.x * distMax / 2, _scale.y * distMax / 2,
-                    _scale.z / 2);
-    gl->model(Translation(posMax) * RotationX(_rotation.x)
-             * RotationY(_rotation.y) * RotationZ(_rotation.z)
-             * Scale(scaleMax.x, scaleMax.y, scaleMax.z));
-    gl->draw(quadMesh);
+    // Init all links between the two square
+    cameraViewMesh.vertex(-distMax / 2, -distMax / 2, distMax);
+    cameraViewMesh.vertex(1, -1, 0);
+    cameraViewMesh.vertex(-distMax / 2, distMax / 2, distMax);
+    cameraViewMesh.vertex(-1, -1, 0);
+    cameraViewMesh.vertex(distMax / 2, distMax / 2, distMax);
+    cameraViewMesh.vertex(-1, 1, 0);
+    cameraViewMesh.vertex(distMax / 2, -distMax / 2, distMax);
+    cameraViewMesh.vertex(-distMax / 2, -distMax / 2, distMax);
+
+    //Init second square (big one)
+    cameraViewMesh.vertex(distMax / 2, distMax / 2, distMax);
+    cameraViewMesh.vertex(-distMax / 2, distMax / 2, distMax);
+}
+
+void DirectorCamera::draw(Orbiter *camera) {
+    glUseProgram(shaderProgram);
+
+    Transform view = camera->view();
+    Transform projection = camera->projection(window_width(),
+                                              window_height(), 45);
+    Transform mvp = projection * view * baseMatrix * XRotation;
+    program_uniform(shaderProgram, "mvpMatrix", mvp);
+    program_uniform(shaderProgram, "distanceMax", distMax);
+    program_uniform(shaderProgram, "helpNeeded", needHelp);
+    cameraViewMesh.draw(shaderProgram, true, true, true, true);
 };

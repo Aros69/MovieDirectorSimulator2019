@@ -5,7 +5,22 @@ MovieDirectorSimulator::MovieDirectorSimulator() : App(1024, 768),
                                                    mb_wireframe(false),
                                                    b_draw_grid(true),
                                                    b_draw_axe(true) {
-    directorCamera = new DirectorCamera(&gl);
+    directorCamera = new DirectorCamera(Translation(0, 5, 0), -30);
+    ground = new Ground();
+    if (SDL_IsGameController(0)) {
+        std::cout << "Gamepad detected\n";
+        gamepads.create();
+    } else {
+        std::cout << "Warning : No Gamepad detected\n";
+    }
+
+}
+
+MovieDirectorSimulator::~MovieDirectorSimulator() {
+    delete directorCamera;
+    directorCamera = nullptr;
+    delete ground;
+    ground = nullptr;
 }
 
 int MovieDirectorSimulator::init() {
@@ -16,6 +31,8 @@ int MovieDirectorSimulator::init() {
     glGetIntegerv(GL_MAJOR_VERSION, &major);
     glGetIntegerv(GL_MINOR_VERSION, &minor);
     m_world.setParticlesCount(10);
+    // Add some software and hardware informations
+    /*
     std::cout << "OpenGL version " << major << " " << minor << "\n";
     const GLubyte *txt;
 
@@ -32,26 +49,27 @@ int MovieDirectorSimulator::init() {
     if (txt)
         std::cout << "OpenGl Shading Language Version " << (const char *) txt
                   << "\n";
+    */
 
     // etat par defaut openGL
     glClearColor(0.5f, 0.5f, 0.9f, 1);
-//    glClearDepthf(1);
+    //glClearDepthf(1);
     //glDepthFunc(GL_LESS);
     glEnable(GL_DEPTH_TEST);
-//    glFrontFace(GL_CCW);
-//    glCullFace(GL_BACK);
-//
-//    if (mb_cullface)
-//        glEnable(GL_CULL_FACE);
-//    else
-//        glDisable(GL_CULL_FACE);        // good for debug
-//    //glEnable(GL_TEXTURE_2D);
-//
-//    //glEnable (GL_BLEND);
-//    //glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    //glFrontFace(GL_CCW);
+    //glCullFace(GL_BACK);
 
-    m_camera.lookat(Point(0, 0, 0), 30);
-    gl.light(Point(0, 20, 20), White());
+    /*if (mb_cullface)
+        glEnable(GL_CULL_FACE);
+    else
+        glDisable(GL_CULL_FACE);        // good for debug
+    glEnable(GL_TEXTURE_2D);*/
+
+    //glEnable (GL_BLEND);
+    //glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    //m_camera.lookat(Point(0, 5, -5), 30);
+    //gl.light(Point(0, 20, 20), White());
 
     init_axe();
     init_grid();
@@ -61,7 +79,7 @@ int MovieDirectorSimulator::init() {
     init_cone();
     init_cylinder();
 
-	m_bvh.init("data/bvh/danse.bvh");
+    m_bvh.init("data/bvh/danse.bvh");
     //m_bvh.init(smart_path("data/bvh/motionFSM/avatar_kick_roundhouse_R.bvh"));
 
     m_frameNumber = 0;
@@ -88,7 +106,8 @@ void MovieDirectorSimulator::help() {
     printf("\tSouris mouvement vertical+bouton droit: (de)zoom\n");
 }
 
-void MovieDirectorSimulator::draw_skeleton(const Skeleton &, const Transform offset) {
+void MovieDirectorSimulator::draw_skeleton(const Skeleton &,
+                                           const Transform offset) {
 
     for (int i = 1; i < m_ske.numberOfJoint(); ++i) {
         draw_cylinder(offset(m_ske.getJointPosition(i)),
@@ -104,7 +123,7 @@ void MovieDirectorSimulator::draw_character(const Skeleton &) {
         Point point2 = (characterController.getMatChar() * animCorrection)(
                 characterSkeleton.getJointPosition(
                         characterSkeleton.getParentId(i)));
-        draw_cylinder(point1/10, point2/10, 0.5);
+        draw_cylinder(point1 / 10, point2 / 10, 0.5);
     }
 }
 
@@ -123,7 +142,8 @@ void MovieDirectorSimulator::draw_cylinder(const Transform &T) {
 }
 
 
-void MovieDirectorSimulator::draw_cylinder(const Point &a, const Point &b, float r) {
+void MovieDirectorSimulator::draw_cylinder(const Point &a,
+                                           const Point &b, float r) {
     Vector ab = b - a;
     Vector p, y, z;
     Vector abn = normalize(ab);
@@ -163,71 +183,35 @@ void MovieDirectorSimulator::draw_cube(const Transform &T) {
     gl.draw(m_cube);
 }
 
+void MovieDirectorSimulator::draw_quad(const Transform &T) {
+    gl.lighting(true);
+    gl.texture(0);
+    gl.model(T);
+    gl.draw(m_quad);
+}
+
 int MovieDirectorSimulator::render() {
     // Efface l'ecran
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Deplace la camera, lumiere, etc.
     manageCameraLight();
-
     // donne notre camera au shader
     gl.camera(m_camera);
 
+    //draw_quad(Translation(0,0,0)*RotationX(-90)*Scale(10,10,10));
     // Affiche le personnage Controlle
     draw_character(characterSkeleton);
 
-    directorCamera->draw();
+    directorCamera->draw(&m_camera);
+
+    ground->draw(&m_camera);
+
     return 1;
 }
 
 void MovieDirectorSimulator::manageCameraLight() {
-    // recupere les mouvements de la souris pour deplacer la camera, cf tutos/tuto6.cpp
-    int mx, my;
-    unsigned int mb = SDL_GetRelativeMouseState(&mx, &my);
-    // deplace la camera
-    if ((mb & SDL_BUTTON(1)) &&
-        (mb & SDL_BUTTON(3)))                 // le bouton du milieu est enfonce
-        m_camera.translation((float) mx / (float) window_width(), (float) my /
-                                                                  (float) window_height());         // deplace le point de rotation
-    else if (mb &
-             SDL_BUTTON(1))                      // le bouton gauche est enfonce
-        m_camera.rotation(mx, my);       // tourne autour de l'objet
-    else if (mb & SDL_BUTTON(3))                 // le bouton droit est enfonce
-        m_camera.move(my);               // approche / eloigne l'objet
-    if (key_state(SDLK_PAGEUP) && (!key_state(SDLK_LCTRL)) &&
-        (!key_state(SDLK_LALT))) { m_camera.translation(0, 0.01); }
-    if (key_state(SDLK_PAGEDOWN) && (!key_state(SDLK_LCTRL)) &&
-        (!key_state(SDLK_LALT))) { m_camera.translation(0, -0.01); }
-    if (key_state(SDLK_LEFT) && (!key_state(SDLK_LCTRL)) &&
-        (!key_state(SDLK_LALT))) { m_camera.translation(0.01, 0); }
-    if (key_state(SDLK_RIGHT) && (!key_state(SDLK_LCTRL)) &&
-        (!key_state(SDLK_LALT))) { m_camera.translation(-0.01, 0); }
-    if (key_state(SDLK_UP) && (!key_state(SDLK_LCTRL)) &&
-        (!key_state(SDLK_LALT))) { m_camera.move(1); }
-    if (key_state(SDLK_DOWN) && (!key_state(SDLK_LCTRL)) &&
-        (!key_state(SDLK_LALT))) { m_camera.move(-1); }
-
-
-    // Deplace la lumiere
     const float step = m_camera.radius() * 0.005f;
-    if (key_state(SDLK_RIGHT) && key_state(SDLK_LCTRL)) {
-        gl.light(gl.light() + Vector(step, 0, 0));
-    }
-    if (key_state(SDLK_LEFT) && key_state(SDLK_LCTRL)) {
-        gl.light(gl.light() + Vector(-step, 0, 0));
-    }
-    if (key_state(SDLK_UP) && key_state(SDLK_LCTRL)) {
-        gl.light(gl.light() + Vector(0, 0, -step));
-    }
-    if (key_state(SDLK_DOWN) && key_state(SDLK_LCTRL)) {
-        gl.light(gl.light() + Vector(0, 0, step));
-    }
-    if (key_state(SDLK_PAGEUP) && key_state(SDLK_LCTRL)) {
-        gl.light(gl.light() + Vector(0, step, 0));
-    }
-    if (key_state(SDLK_PAGEDOWN) && key_state(SDLK_LCTRL)) {
-        gl.light(gl.light() + Vector(0, -step, 0));
-    }
 
     // (De)Active la grille / les axes
     if (key_state('h')) help();
@@ -252,21 +236,11 @@ void MovieDirectorSimulator::manageCameraLight() {
         clear_key_state('a');
     }
 
-    gl.camera(m_camera);
-    //draw(m_cube, Translation( Vector( gl.light()))*Scale(0.3, 0.3, 0.3), m_camera);
-    //draw_param.texture(quad_texture).camera(camera).model(Translation( 3, 5, 0 )).draw(quad);
 
     // AXE et GRILLE
     gl.model(Scale(10. * step, 10.0 * step, 10.0 * step));
     if (b_draw_grid) gl.draw(m_grid);
     if (b_draw_axe) gl.draw(m_axe);
-
-    //  LIGHT
-    gl.texture(0);
-    gl.lighting(false);
-    gl.model(Translation(Vector(gl.light())) * Scale(step, step, step));
-    gl.draw(m_cube);
-    gl.lighting(true);
 }
 
 void MovieDirectorSimulator::init_axe() {
@@ -320,7 +294,6 @@ void MovieDirectorSimulator::init_quad() {
 }
 
 void MovieDirectorSimulator::init_cube() {
-    //                          0           1           2       3           4           5       6           7
     static float pt[8][3] = {{-1, -1, -1},
                              {1,  -1, -1},
                              {1,  -1, 1},
@@ -456,15 +429,9 @@ void MovieDirectorSimulator::init_cylinder() {
 }
 
 int MovieDirectorSimulator::update(const float time, const float delta) {
-	if (key_state('n')) {
-        m_frameNumber++;
-        std::cout << m_frameNumber << '\n';
-    }
-    if (key_state('b')) {
-        --m_frameNumber;
-        std::cout << m_frameNumber << '\n';
-    }
     m_ske.setPose(m_bvh, m_frameNumber);
+
+    gamepadInput();
 
     cubeController.update(delta / 1000);
     characterController.update(delta / 1000);
@@ -473,4 +440,96 @@ int MovieDirectorSimulator::update(const float time, const float delta) {
 
     m_world.update(0.1f);
     return 0;
+}
+
+void MovieDirectorSimulator::gamepadInput() {
+    if (gamepads.pads() > 0) {
+        gamepads.update();
+        if (gamepads.button(0, SDL_CONTROLLER_BUTTON_A) == 1) {
+            //std::cout << "bouton A\n";
+        }
+        if (gamepads.button(0, SDL_CONTROLLER_BUTTON_B) == 1) {
+            //std::cout << "bouton B\n";
+        }
+        if (gamepads.button(0, SDL_CONTROLLER_BUTTON_X) == 1) {
+            directorCamera->changeHelp();
+        }
+        if (gamepads.button(0, SDL_CONTROLLER_BUTTON_Y) == 1) {
+            FPSView = !FPSView;
+        }
+        if (gamepads.axis(0, SDL_CONTROLLER_AXIS_LEFTX) <= -0.5) {
+            directorCamera->moveLeft();
+        }
+        if (gamepads.axis(0, SDL_CONTROLLER_AXIS_LEFTX) >= 0.5) {
+            directorCamera->moveRight();
+        }
+        if (gamepads.axis(0, SDL_CONTROLLER_AXIS_LEFTY) <= -0.5) {
+            directorCamera->moveForward();
+        }
+        if (gamepads.axis(0, SDL_CONTROLLER_AXIS_LEFTY) >= 0.5) {
+            directorCamera->moveBackward();
+        }
+        if (gamepads.axis(0, SDL_CONTROLLER_AXIS_RIGHTX) >= 0.5) {
+            directorCamera->rotateRight();
+        }
+        if (gamepads.axis(0, SDL_CONTROLLER_AXIS_RIGHTX) <= -0.5) {
+            directorCamera->rotateLeft();
+        }
+        if (gamepads.axis(0, SDL_CONTROLLER_AXIS_RIGHTY) <= -0.5) {
+            directorCamera->rotateUp();
+        }
+        if (gamepads.axis(0, SDL_CONTROLLER_AXIS_RIGHTY) >= 0.5) {
+            directorCamera->rotateDown();
+        }
+    } else {
+        if (key_state('q')) {
+            directorCamera->moveLeft();
+        }
+        if (key_state('d')) {
+            directorCamera->moveRight();
+        }
+        if (key_state('z')) {
+            directorCamera->moveForward();
+        }
+        if (key_state('s')) {
+            directorCamera->moveBackward();
+        }
+        if (key_state('l')) {
+            directorCamera->rotateRight();
+        }
+        if (key_state('j')) {
+            directorCamera->rotateLeft();
+        }
+        if (key_state('i')) {
+            directorCamera->rotateUp();
+        }
+        if (key_state('k')) {
+            directorCamera->rotateDown();
+        }
+        if (key_state('v')) {
+            FPSView = !FPSView;
+        }
+        if (key_state('c')) {
+            directorCamera->changeHelp();
+        }
+    }
+    //std::cout << directorCamera->getPosition() << "\n";
+    Point newCameraPosition = directorCamera->getPosition();
+    if (!FPSView) {
+        newCameraPosition.x -= 5;
+        newCameraPosition.y += 3;
+        newCameraPosition.z -= 5;
+        m_camera.lookat(newCameraPosition, 30);
+        m_camera.rotation(directorCamera->getYRotation(),
+                          directorCamera->getXRotation());
+    } else {
+        m_camera.lookat(newCameraPosition, 30);
+        m_camera.rotation(directorCamera->getYRotation(),
+                          directorCamera->getXRotation());
+        // Value by testing
+        m_camera.move(100);
+    }
+    newCameraPosition.y += 20;
+    newCameraPosition.z += 10;
+    gl.light(newCameraPosition);
 }

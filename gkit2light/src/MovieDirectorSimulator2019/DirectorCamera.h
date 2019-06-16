@@ -4,32 +4,76 @@
 
 #include <mesh.h>
 #include <draw.h>
+#include <uniforms.h>
+#include <program.h>
 
 class DirectorCamera {
 public:
-    DirectorCamera(DrawParam* drawParamGl) : DirectorCamera(Vector(0, 0, 0), Vector(0, 0, 0),
-                                      Vector(1, 1, 1), -10) {
-        gl = drawParamGl;
-    };
+    DirectorCamera() : DirectorCamera(Transform(), -20) {};
 
-    DirectorCamera(Vector position, Vector rotation, Vector scale,
+    DirectorCamera(Transform matrix,
                    int distViewMax);
 
-    void init_quad();
+    ~DirectorCamera();
 
-    void draw();
+    void init_cameraView();
+
+    void draw(Orbiter *camera);
+
+    Transform getMatrix() { return baseMatrix; };
+
+    void setMatrix(Transform matrix) { baseMatrix = matrix; };
+
+    void addTransform(Transform matrix) { baseMatrix = baseMatrix * matrix; };
+
+    void moveForward() { addTransform(Translation(0, 0, -0.5)); };
+
+    void moveBackward() { addTransform(Translation(0, 0, 0.5)); };
+
+    void moveLeft() { addTransform(Translation(-0.5, 0, 0)); };
+
+    void moveRight() { addTransform(Translation(0.5, 0, 0)); };
+
+    void rotateLeft() {
+        addTransform(RotationY(0.5));
+        yRotAngle -= 0.5;
+    };
+
+    void rotateRight() {
+        addTransform(RotationY(-0.5));
+        yRotAngle += 0.5;
+    };
+
+    void rotateUp() {
+        XRotation = XRotation * RotationX(0.5);
+        xRotAngle -= 0.5;
+    };
+
+    void rotateDown() {
+        XRotation = XRotation * RotationX(-0.5);
+        xRotAngle += 0.5;
+    };
+
+    Point getPosition() const {
+        return (baseMatrix * XRotation)(Point(0, 0, 0));
+    };
+
+    float getYRotation() const { return yRotAngle; };
+
+    float getXRotation() const { return xRotAngle; };
+
+    void changeHelp() { needHelp = !needHelp; };
 
 private:
-
-    DrawParam* gl;
-
-    Vector _position;
-    Vector _rotation;
-    Vector _scale;
+    GLuint shaderProgram;
+    Transform baseMatrix;
+    Transform XRotation;
+    float yRotAngle = 0;
+    float xRotAngle = 0;
     int distMax;
+    bool needHelp = false;
 
-    Mesh quadMesh;
-
+    Mesh cameraViewMesh;
 };
 
 

@@ -5,6 +5,7 @@
 #include <app.h>
 #include <mesh.h>
 #include <draw.h>
+#include <gamepads.h>
 #include "Anim/CharacterController.h"
 #include "Anim/Skeleton.h"
 #include "Anim/CubeController.h"
@@ -12,10 +13,14 @@
 #include "Anim/Viewer.h"
 #include "Anim/PhysicalWorld.h"
 #include "DirectorCamera.h"
+#include "BasicDrawObject.h"
+#include "Ground.h"
 
 class MovieDirectorSimulator : public App {
 public:
     MovieDirectorSimulator();
+
+    ~MovieDirectorSimulator();
 
     //! Initialise tout :
     //! compile les shaders et construit :
@@ -32,7 +37,6 @@ public:
     int quit() { return 1; }
 
 protected:
-
 	chara::BVH m_bvh;
     int m_frameNumber;
 
@@ -60,6 +64,10 @@ protected:
     Mesh m_cylinder;
     Mesh m_cylinder_cover;
     DirectorCamera *directorCamera;
+    Ground * ground;
+    bool FPSView = false;
+
+    Gamepads gamepads;
 
     bool b_draw_grid;
     bool b_draw_axe;
@@ -86,6 +94,10 @@ protected:
    	void draw_sphere(const Point& a, float r = 1.f);
 
    	void draw_cube(const Transform& T);
+
+	void draw_quad(const Transform &T);
+
+   	void gamepadInput();
 
 };
 
