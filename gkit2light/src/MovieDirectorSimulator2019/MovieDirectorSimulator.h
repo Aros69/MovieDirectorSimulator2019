@@ -12,6 +12,7 @@
 #include "Anim/BVH.h"
 #include "Anim/Viewer.h"
 #include "Anim/PhysicalWorld.h"
+#include "DirectorCamera.h"
 
 class MovieDirectorSimulator : public App {
 public:
@@ -60,6 +61,7 @@ protected:
     Mesh m_cone;
     Mesh m_cylinder;
     Mesh m_cylinder_cover;
+    DirectorCamera *directorCamera;
 
     bool b_draw_grid;
     bool b_draw_axe;

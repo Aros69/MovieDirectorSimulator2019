@@ -4,7 +4,9 @@ MovieDirectorSimulator::MovieDirectorSimulator() : App(1024, 768),
                                                    mb_cullface(true),
                                                    mb_wireframe(false),
                                                    b_draw_grid(true),
-                                                   b_draw_axe(true) {}
+                                                   b_draw_axe(true) {
+    directorCamera = new DirectorCamera(&gl);
+}
 
 int MovieDirectorSimulator::init() {
     SDL_SetWindowTitle(m_window, "Movie Director Simulator 2019");
@@ -73,7 +75,7 @@ int MovieDirectorSimulator::init() {
     for(int i = 0; i < 5; i++) {
     	characterSkeleton[i].init(*characterController[i].getAnim());
     	characterSkeleton[i].setPose(*characterController[i].getAnim(), -1);
-    	
+
 	}
     return 1;
 }
@@ -169,7 +171,6 @@ void MovieDirectorSimulator::draw_cylinder(Vector v, const Point &a, const Point
     //cout << T[3] << endl;
 
     draw_cylinder(Translation(Vector(a)) * T * Scale(r, lab, r));
-
 }
 
 void MovieDirectorSimulator::draw_sphere(const Point &a, float r) {
@@ -200,33 +201,13 @@ int MovieDirectorSimulator::render() {
     gl.camera(m_camera);
 
     // Affiche le personnage principal
-    
+
     for(int i = 0; i < 5; i++) {
 		draw_character(Vector(i*3, 0, i+2), characterSkeleton[i]);
     }
-    
 
-/*
-    gl.lighting(true);
-    gl.texture(0);
-    gl.model(Translation(0, 0, 0));
-    gl.draw(m_sphere);
-    gl.model(Translation(2, 0, 0));
-    gl.draw(m_sphere);
 
-    gl.lighting(true);
-    gl.texture(0);
-    Vector posInit(0,5,0);
-    Vector scaleInit(1,1,1);
-    gl.model(Translation(posInit)*Scale(scaleInit.x, scaleInit.y, scaleInit.z));
-    gl.draw(m_quad);
-
-    int distMax = 7;
-    Vector posMax(posInit.x, posInit.y, posInit.z+distMax);
-    Vector scaleMax(scaleInit.x*distMax, scaleInit.y*distMax, scaleInit.z);
-    gl.model(Translation(posMax)*Scale(scaleMax.x, scaleMax.y, scaleMax.z));
-    gl.draw(m_quad);
-*/
+    directorCamera->draw();
     return 1;
 }
 
