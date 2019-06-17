@@ -136,6 +136,33 @@ shaderKit.exe/fast:
 	$(MAKE) -f CMakeFiles/shaderKit.exe.dir/build.make CMakeFiles/shaderKit.exe.dir/build
 .PHONY : shaderKit.exe/fast
 
+src/MovieDirectorSimulator2019/Anim/AIController.o: src/MovieDirectorSimulator2019/Anim/AIController.cpp.o
+
+.PHONY : src/MovieDirectorSimulator2019/Anim/AIController.o
+
+# target to build an object file
+src/MovieDirectorSimulator2019/Anim/AIController.cpp.o:
+	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/MovieDirectorSimulator2019/Anim/AIController.cpp.o
+.PHONY : src/MovieDirectorSimulator2019/Anim/AIController.cpp.o
+
+src/MovieDirectorSimulator2019/Anim/AIController.i: src/MovieDirectorSimulator2019/Anim/AIController.cpp.i
+
+.PHONY : src/MovieDirectorSimulator2019/Anim/AIController.i
+
+# target to preprocess a source file
+src/MovieDirectorSimulator2019/Anim/AIController.cpp.i:
+	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/MovieDirectorSimulator2019/Anim/AIController.cpp.i
+.PHONY : src/MovieDirectorSimulator2019/Anim/AIController.cpp.i
+
+src/MovieDirectorSimulator2019/Anim/AIController.s: src/MovieDirectorSimulator2019/Anim/AIController.cpp.s
+
+.PHONY : src/MovieDirectorSimulator2019/Anim/AIController.s
+
+# target to generate assembly for a file
+src/MovieDirectorSimulator2019/Anim/AIController.cpp.s:
+	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/MovieDirectorSimulator2019/Anim/AIController.cpp.s
+.PHONY : src/MovieDirectorSimulator2019/Anim/AIController.cpp.s
+
 src/MovieDirectorSimulator2019/Anim/Animations/Crouch.o: src/MovieDirectorSimulator2019/Anim/Animations/Crouch.cpp.o
 
 .PHONY : src/MovieDirectorSimulator2019/Anim/Animations/Crouch.o
@@ -702,6 +729,33 @@ src/MovieDirectorSimulator2019/DirectorCamera.s: src/MovieDirectorSimulator2019/
 src/MovieDirectorSimulator2019/DirectorCamera.cpp.s:
 	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/MovieDirectorSimulator2019/DirectorCamera.cpp.s
 .PHONY : src/MovieDirectorSimulator2019/DirectorCamera.cpp.s
+
+src/MovieDirectorSimulator2019/GameCharacter.o: src/MovieDirectorSimulator2019/GameCharacter.cpp.o
+
+.PHONY : src/MovieDirectorSimulator2019/GameCharacter.o
+
+# target to build an object file
+src/MovieDirectorSimulator2019/GameCharacter.cpp.o:
+	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/MovieDirectorSimulator2019/GameCharacter.cpp.o
+.PHONY : src/MovieDirectorSimulator2019/GameCharacter.cpp.o
+
+src/MovieDirectorSimulator2019/GameCharacter.i: src/MovieDirectorSimulator2019/GameCharacter.cpp.i
+
+.PHONY : src/MovieDirectorSimulator2019/GameCharacter.i
+
+# target to preprocess a source file
+src/MovieDirectorSimulator2019/GameCharacter.cpp.i:
+	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/MovieDirectorSimulator2019/GameCharacter.cpp.i
+.PHONY : src/MovieDirectorSimulator2019/GameCharacter.cpp.i
+
+src/MovieDirectorSimulator2019/GameCharacter.s: src/MovieDirectorSimulator2019/GameCharacter.cpp.s
+
+.PHONY : src/MovieDirectorSimulator2019/GameCharacter.s
+
+# target to generate assembly for a file
+src/MovieDirectorSimulator2019/GameCharacter.cpp.s:
+	$(MAKE) -f CMakeFiles/MDS2019.exe.dir/build.make CMakeFiles/MDS2019.exe.dir/src/MovieDirectorSimulator2019/GameCharacter.cpp.s
+.PHONY : src/MovieDirectorSimulator2019/GameCharacter.cpp.s
 
 src/MovieDirectorSimulator2019/Ground.o: src/MovieDirectorSimulator2019/Ground.cpp.o
 
@@ -1451,6 +1505,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... MDS2019.exe"
 	@echo "... shaderKit.exe"
+	@echo "... src/MovieDirectorSimulator2019/Anim/AIController.o"
+	@echo "... src/MovieDirectorSimulator2019/Anim/AIController.i"
+	@echo "... src/MovieDirectorSimulator2019/Anim/AIController.s"
 	@echo "... src/MovieDirectorSimulator2019/Anim/Animations/Crouch.o"
 	@echo "... src/MovieDirectorSimulator2019/Anim/Animations/Crouch.i"
 	@echo "... src/MovieDirectorSimulator2019/Anim/Animations/Crouch.s"
@@ -1514,6 +1571,9 @@ help:
 	@echo "... src/MovieDirectorSimulator2019/DirectorCamera.o"
 	@echo "... src/MovieDirectorSimulator2019/DirectorCamera.i"
 	@echo "... src/MovieDirectorSimulator2019/DirectorCamera.s"
+	@echo "... src/MovieDirectorSimulator2019/GameCharacter.o"
+	@echo "... src/MovieDirectorSimulator2019/GameCharacter.i"
+	@echo "... src/MovieDirectorSimulator2019/GameCharacter.s"
 	@echo "... src/MovieDirectorSimulator2019/Ground.o"
 	@echo "... src/MovieDirectorSimulator2019/Ground.i"
 	@echo "... src/MovieDirectorSimulator2019/Ground.s"

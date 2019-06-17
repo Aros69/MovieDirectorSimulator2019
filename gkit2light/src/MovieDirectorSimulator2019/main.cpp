@@ -1,8 +1,9 @@
 #include <iostream>
 #include "MovieDirectorSimulator.h"
 
-int main() {
+int main(int argc, char* argv[]) {
     std::cout << "Début de MDS 2019\n";
+
 
     MovieDirectorSimulator game;
     game.run();

@@ -58,7 +58,7 @@ void main()
     } else {
         // clean the fragment (become transparent)
         if (helpNeeded && vertex_position.z == distanceMax){
-            fragment_color= vec4(0, 1, 0, 1);
+            fragment_color= vec4(0.8, 0.8, 0.8, 0.1);
         } else {
             discard;
         }

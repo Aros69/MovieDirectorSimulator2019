@@ -40,11 +40,20 @@ public:
 
     float velocityMax() const { return m_vMax; }
 
+    void addTransform(Transform t) { m_ch2w = m_ch2w * t; }
+
+    void setRotation(float angle) { angleY = angle; }
+
+    void setMatrix(Transform t) { m_ch2w = t; };
+
+    float getRotationY() { return angleY; };
+
 protected:
     Transform m_ch2w;   // matrice du character vers le monde
     // le personnage se déplace vers X
     // il tourne autour de Y
     // Z est sa direction droite
+    float angleY = 0;
 
     float m_v;          // le vecteur vitesse est m_v * m_ch2w * Vector(1,0,0)
     float m_vMax;       // ne peut pas accélérer plus, le cube ne peux pas faire plus que Translation(10,0,0) par seconde

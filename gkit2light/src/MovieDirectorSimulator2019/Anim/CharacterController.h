@@ -20,7 +20,7 @@ public:
 
     ~CharacterController();
 
-    void update(const float dt) override;
+    virtual void update(const float dt) override;
 
     void setAnim(unsigned int index, unsigned int goodFrame);
 
@@ -66,9 +66,26 @@ public:
         setAnim(11, goodFrame);
     }
 
+    void forward(float dt) {
+        setForward(true);
+        accelerate(dt);
+        moveKeyPressed = true;
+    }
+
+    void backward(float dt) {
+        setForward(false);
+        accelerate(dt);
+        moveKeyPressed = true;
+    }
+
+    void rotateLeft(float dt) { turnXZ(5.0); }
+
+    void rotateRight(float dt) { turnXZ(-5.0); }
+
 protected:
     AnimState **animations;
     unsigned int actualAnimationIndex;
+    bool moveKeyPressed = false;
 };
 
 #endif //GKIT2LIGHT_MASTER_CHARANIM_CHARACTERCONTROLLER_H

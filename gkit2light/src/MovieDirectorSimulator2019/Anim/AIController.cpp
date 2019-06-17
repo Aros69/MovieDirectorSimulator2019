@@ -1,35 +1,46 @@
-#include "CharacterController.h"
+#include <Animations/Run.h>
+#include <Animations/Walk.h>
+#include "AIController.h"
 
+AIController::AIController() : CharacterController() {}
 
-CharacterController::CharacterController() : CubeController() {
-    animations = new AnimState*[3];
-    animations[0] = new Idle(this);
-    animations[1] = new Walk(this);
-    animations[2] = new Run(this);
-    setActualAnimIdle(0);
-}
-
-CharacterController::~CharacterController() {
-    for(int i=0;i<3;++i){
+AIController::~AIController() {
+    for (int i = 0; i < 3; ++i) {
         delete animations[i];
         animations[i] = nullptr;
     }
-    delete []animations;
+    delete[]animations;
     animations = nullptr;
 }
 
-void CharacterController::setAnim(unsigned int index, unsigned int goodFrame) {
-    actualAnimationIndex = index;
-    animations[actualAnimationIndex]->setActualframe(goodFrame);
-    animations[actualAnimationIndex]->setTimeAnim(0);
-}
-
-void CharacterController::update(const float dt) {
+void AIController::update(const float dt) {
     bool moveKeyPressed = false;
+    //character->setTimeAnim(character->getTimeAnim() + 1);
+    // Handling input
+    if (timeSinceLastChange == 0 || timeSinceLastChange > 2) {
+        lastInput = rand() % 5;
+        timeSinceLastChange = 0;
+    }
+    if (lastInput == 0) {
+        setForward(true);
+        accelerate(dt);
+        moveKeyPressed = true;
+    }
+    if (lastInput == 1) {
+        turnXZ(5.0);
+    }
+    if (lastInput == 2) {
+        setForward(false);
+        accelerate(dt);
+        moveKeyPressed = true;
+    }
+    if (lastInput == 3) {
+        turnXZ(-5.0);
+    }
     if (!moveKeyPressed) {
         deccelerate(dt);
     }
-    //moveKeyPressed= false;
+    timeSinceLastChange += dt;
     if (actualAnimationIndex != 1 && velocity() < velocityMax() / 2
         && velocity() > -velocityMax() / 2) {
         setActualAnimWalk(0);

@@ -6,6 +6,7 @@
 #include <draw.h>
 #include <uniforms.h>
 #include <program.h>
+#include "GameCharacter.h"
 
 class DirectorCamera {
 public:
@@ -26,22 +27,44 @@ public:
 
     void addTransform(Transform matrix) { baseMatrix = baseMatrix * matrix; };
 
-    void moveForward() { addTransform(Translation(0, 0, -0.5)); };
+    void moveForward() {
+        addTransform(Translation(0, 0, -0.5));
+        Point p = getPosition();
+        if (p.x < -28 || p.x > 28 || p.z > 28 || p.z < -28) {
+            addTransform(Translation(0, 0, 0.5));
+        }
+    };
 
-    void moveBackward() { addTransform(Translation(0, 0, 0.5)); };
+    void moveBackward() {
+        addTransform(Translation(0, 0, 0.5));
+        Point p = getPosition();
+        if (p.x < -28 || p.x > 28 || p.z > 28 || p.z < -28) {
+            addTransform(Translation(0, 0, -0.5));
+        }
+    };
 
-    void moveLeft() { addTransform(Translation(-0.5, 0, 0)); };
+    void moveLeft() {
+        addTransform(Translation(-0.5, 0, 0));
+        Point p = getPosition();
+        if (p.x < -28 || p.x > 28 || p.z > 28 || p.z < -28) {
+            addTransform(Translation(0.5, 0, 0));
+        }
+    };
 
-    void moveRight() { addTransform(Translation(0.5, 0, 0)); };
+    void moveRight() { addTransform(Translation(0.5, 0, 0));
+        Point p = getPosition();
+        if(p.x<-28||p.x>28||p.z>28||p.z<-28){
+            addTransform(Translation(-0.5, 0, 0));
+        }};
 
     void rotateLeft() {
-        addTransform(RotationY(0.5));
-        yRotAngle -= 0.5;
+        addTransform(RotationY(1));
+        yRotAngle -= 1;
     };
 
     void rotateRight() {
-        addTransform(RotationY(-0.5));
-        yRotAngle += 0.5;
+        addTransform(RotationY(-1));
+        yRotAngle += 1;
     };
 
     void rotateUp() {
@@ -55,7 +78,7 @@ public:
     };
 
     Point getPosition() const {
-        return (baseMatrix * XRotation)(Point(0, 0, 0));
+        return (immutableOffset * baseMatrix * XRotation)(Point(0, 0, 0));
     };
 
     float getYRotation() const { return yRotAngle; };
@@ -64,8 +87,15 @@ public:
 
     void changeHelp() { needHelp = !needHelp; };
 
+    Transform getAllTransform() {
+        return immutableOffset * baseMatrix * XRotation;
+    };
+
+    void update(float dt);
+
 private:
     GLuint shaderProgram;
+    Transform immutableOffset;
     Transform baseMatrix;
     Transform XRotation;
     float yRotAngle = 0;
@@ -74,6 +104,7 @@ private:
     bool needHelp = false;
 
     Mesh cameraViewMesh;
+    GameCharacter* director;
 };
 
 

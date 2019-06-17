@@ -21,7 +21,7 @@ include(${CMAKE_DIR}/addDependencies.cmake)
 # Create execute file
 add_executable(MDS2019.exe
         ${GKIT_SRC_FILES}
-        ${MDS2019_SRC_FILES} src/MovieDirectorSimulator2019/BasicDrawObject.cpp src/MovieDirectorSimulator2019/BasicDrawObject.h src/MovieDirectorSimulator2019/Ground.cpp src/MovieDirectorSimulator2019/Ground.h)
+        ${MDS2019_SRC_FILES} src/MovieDirectorSimulator2019/BasicDrawObject.cpp src/MovieDirectorSimulator2019/BasicDrawObject.h src/MovieDirectorSimulator2019/Ground.cpp src/MovieDirectorSimulator2019/Ground.h src/MovieDirectorSimulator2019/Anim/AIController.cpp src/MovieDirectorSimulator2019/Anim/AIController.h src/MovieDirectorSimulator2019/GameCharacter.cpp src/MovieDirectorSimulator2019/GameCharacter.h)
 
 add_executable(shaderKit.exe
         src/shader_kit.cpp
@@ -32,7 +32,8 @@ target_link_libraries(MDS2019.exe
         ${SDL2_LIBRARIES}
         ${SDL2_IMG_LIBRARIES}
         ${GLEW_LIBRARIES}
-        ${OPENGL_LIBRARIES})
+        ${OPENGL_LIBRARIES}
+        ${GLUT_LIBRARIES})
 
 # Link SDL2, OpenGL and GLEW
 target_link_libraries(shaderKit.exe

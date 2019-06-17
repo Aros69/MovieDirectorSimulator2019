@@ -47,6 +47,8 @@ public:
 
     void drawQuad(GLuint shaderProgram);
 
+    void drawCylinder(GLuint shaderProgram, Transform matrix);
+
 };
 
 

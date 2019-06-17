@@ -1,5 +1,6 @@
 #include "BasicDrawObject.h"
 #include <math.h>
+#include <uniforms.h>
 
 BasicDrawObject *BasicDrawObject::_instance;
 
@@ -212,3 +213,17 @@ void BasicDrawObject::drawCube(GLuint shaderProgram) {
 void BasicDrawObject::drawQuad(GLuint shaderProgram) {
     m_quad.draw(shaderProgram, true, true, true, true);
 };
+
+void BasicDrawObject::drawCylinder(GLuint shader, Transform matrix) {
+
+    program_uniform(shader, "mvpMatrix", matrix);
+    m_cylinder.draw(shader, true, true, true, true);
+    Transform Tch = matrix * Translation(0, 1, 0);
+    program_uniform(shader, "mvpMatrix", Tch);
+    m_cylinder_cover.draw(shader, true, true, true, true);
+
+    Transform Tcb =
+            matrix * Translation(0, 0, 0) * Rotation(Vector(1, 0, 0), 180);
+    program_uniform(shader, "mvpMatrix", Tcb);
+    m_cylinder_cover.draw(shader, true, true, true, true);
+}

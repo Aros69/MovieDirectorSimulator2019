@@ -5,6 +5,7 @@ message(STATUS "Including (if they are installed on the computer) SDL2, SDL2Imag
 find_package(SDL2 REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(OpenGL REQUIRED)
+find_package(GLUT REQUIRED)
 
 # Special treatment for SDL2Image
 INCLUDE(FindPkgConfig)
@@ -14,4 +15,5 @@ pkg_check_modules(SDL2_IMG REQUIRED SDL2_image)
 include_directories(${SDL2_INCLUDE_DIRS}
         ${SDL2_IMG_INCLUDE_DIRS}
         ${GLEW_INCLUDE_DIRS}
-		${OPENGL_INCLUDE_DIRS})
+		${OPENGL_INCLUDE_DIRS}
+		${GLUT_INCLUDE_DIRS})

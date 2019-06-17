@@ -1,11 +1,13 @@
+#include <cstring>
 #include "MovieDirectorSimulator.h"
+
 
 MovieDirectorSimulator::MovieDirectorSimulator() : App(1024, 768),
                                                    mb_cullface(true),
                                                    mb_wireframe(false),
                                                    b_draw_grid(true),
                                                    b_draw_axe(true) {
-    directorCamera = new DirectorCamera(Translation(0, 5, 0), -30);
+    directorCamera = new DirectorCamera(Translation(0, 5, 0), -20);
     ground = new Ground();
     if (SDL_IsGameController(0)) {
         std::cout << "Gamepad detected\n";
@@ -13,19 +15,24 @@ MovieDirectorSimulator::MovieDirectorSimulator() : App(1024, 768),
     } else {
         std::cout << "Warning : No Gamepad detected\n";
     }
+    textWidget = create_widgets();
 
 }
 
 MovieDirectorSimulator::~MovieDirectorSimulator() {
+    for (auto p:gameCharacters) {
+        delete p;
+        p = nullptr;
+    }
     delete directorCamera;
     directorCamera = nullptr;
     delete ground;
     ground = nullptr;
+    release_widgets(textWidget);
 }
 
 int MovieDirectorSimulator::init() {
     SDL_SetWindowTitle(m_window, "Movie Director Simulator 2019");
-
     int major = 0;
     int minor = 0;
     glGetIntegerv(GL_MAJOR_VERSION, &major);
@@ -59,160 +66,33 @@ int MovieDirectorSimulator::init() {
     //glFrontFace(GL_CCW);
     //glCullFace(GL_BACK);
 
+
     /*if (mb_cullface)
         glEnable(GL_CULL_FACE);
     else
         glDisable(GL_CULL_FACE);        // good for debug
     glEnable(GL_TEXTURE_2D);*/
 
-    //glEnable (GL_BLEND);
-    //glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    //m_camera.lookat(Point(0, 5, -5), 30);
-    //gl.light(Point(0, 20, 20), White());
-
-    init_axe();
-    init_grid();
-    init_quad();
-    init_cube();
-    init_sphere();
-    init_cone();
-    init_cylinder();
-
-    m_bvh.init("data/bvh/danse.bvh");
-    //m_bvh.init(smart_path("data/bvh/motionFSM/avatar_kick_roundhouse_R.bvh"));
+    /*glEnable (GL_BLEND);
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);*/
 
     m_frameNumber = 0;
-    m_ske.init(m_bvh);
-    m_ske.setPose(m_bvh, -1);// met le skeleton a la pose au repos
 
+    gameCharacters = std::vector<GameCharacter *>(num);
 
-    characterSkeleton = std::vector<Skeleton>(5);
-    characterController = std::vector<CharacterController>(5);
+    initColors();
+    for (int i = 0; i < num; ++i) {
+        /*if (i == 0) {
+            gameCharacters[i] = new GameCharacter(false, "");
+        } else {*/
+        gameCharacters[i] = new GameCharacter(true, colors[i % num].first,
+                                              colors[i % num].second);
+        gameCharacters[i]->setOffset(
+                Translation(rand() % 400 - 200, 0, rand() % 400 - 200));
+        //}
+    }
 
-    for(int i = 0; i < 5; i++) {
-    	characterSkeleton[i].init(*characterController[i].getAnim());
-    	characterSkeleton[i].setPose(*characterController[i].getAnim(), -1);
-
-	}
     return 1;
-}
-
-
-void MovieDirectorSimulator::help() {
-    printf("HELP:\n");
-    printf("\th: help\n");
-    printf("\tc: (des)active GL_CULL_FACE\n");
-    printf("\tw: (des)active wireframe\n");
-    printf("\ta: (des)active l'affichage de l'axe\n");
-    printf("\tg: (des)active l'affichage de la grille\n");
-    printf("\tz: (des)active l'affichage de la courbe d'animation\n");
-    printf("\tfleches/pageUp/pageDown: bouge la cam�ra\n");
-    printf("\tCtrl+fleche/pageUp/pageDown: bouge la source de lumi�re\n");
-    printf("\tSouris+bouton gauche: rotation\n");
-    printf("\tSouris mouvement vertical+bouton droit: (de)zoom\n");
-}
-
-void MovieDirectorSimulator::draw_skeleton(Vector v, const Skeleton &, const Transform offset) {
-
-    for (int i = 1; i < m_ske.numberOfJoint(); ++i) {
-        draw_cylinder(v, offset(m_ske.getJointPosition(i)),
-                      offset(m_ske.getJointPosition(m_ske.getParentId(i))), 1);
-    }
-}
-
-void MovieDirectorSimulator::draw_character(Vector v, const Skeleton &) {
-	for(int j = 0; j < 5; j++) {
-	    for (int i = 1; i < characterSkeleton[j].numberOfJoint(); ++i) {
-	        Transform animCorrection = *characterController[j].getAnimCorrection();
-	        Point point1 = (characterController[j].getMatChar() * animCorrection)(
-	                characterSkeleton[j].getJointPosition(i));
-	        Point point2 = (characterController[j].getMatChar() * animCorrection)(
-	                characterSkeleton[j].getJointPosition(
-	                        characterSkeleton[j].getParentId(i)));
-	        draw_cylinder(v, point1/10, point2/10, 0.1);
-	    }
-	}
-}
-
-void MovieDirectorSimulator::draw_cylinder(const Transform &T) {
-    gl.model(T);
-    gl.draw(m_cylinder);
-    Transform Tch = T * Translation(0, 1, 0);
-    gl.model(Tch);
-    gl.draw(m_cylinder_cover);
-
-    //Transform Tcb = T  * Translation( 0, -1, 0);
-    Transform Tcb = T * Translation(0, 0, 0) * Rotation(Vector(1, 0, 0), 180);
-    gl.model(Tcb);
-    gl.draw(m_cylinder_cover);
-}
-
-
-void MovieDirectorSimulator::draw_cylinder(Vector v, const Point &a, const Point &b, float r) {
-    Vector ab = b - a;
-    Vector p, y, z;
-    Vector abn = normalize(ab);
-    float lab = length(ab);
-    if (lab < 0.00001f) return;
-    if (fabs(ab.x) > 0.25f)
-        p = Vector(0, 1, 0);
-    else
-        p = Vector(1, 0, 0);
-
-    y = cross(abn, p);
-    y = normalize(y);
-    z = cross(abn, y);
-    //Transform T(z, abn, y, Vector(0, 0, 0));
-    Transform T(z, abn, y, v);
-    /*
-    for(int i = 0; i < 5; i++){
-    	if(i == 0) {
-    		Transform T(z, abn, y,Vector(5, 0, -5));
-    	 	draw_cylinder(Translation(Vector(a)) * T * Scale(r, lab, r));
-    	}else if (i == 1) {
-    		Transform T(z, abn, y,Vector(10, 0, 0));
-    	 	draw_cylinder(Translation(Vector(a)) * T * Scale(r, lab, r));
-    	}else if (i == 2) {
-    		Transform T(z, abn, y,Vector(0, 0, 0));
-    	 	draw_cylinder(Translation(Vector(a)) * T * Scale(r, lab, r));
-    	}else if (i == 3) {
-    		Transform T(z, abn, y,Vector(-7, 0, 3));
-    	 	draw_cylinder(Translation(Vector(a)) * T * Scale(r, lab, r));
-    	}
-    }
-	*/
-
-    //cout << T[0] << endl;
-    //cout << T[1] << endl;
-    //cout << T[2] << endl;
-    //cout << T[3] << endl;
-
-    draw_cylinder(Translation(Vector(a)) * T * Scale(r, lab, r));
-}
-
-void MovieDirectorSimulator::draw_sphere(const Point &a, float r) {
-    draw_sphere(Translation(Vector(a)) * Scale(r, r, r));
-}
-
-
-void MovieDirectorSimulator::draw_sphere(const Transform &T) {
-    gl.model(T);
-    gl.draw(m_sphere);
-}
-
-void MovieDirectorSimulator::draw_cube(const Transform &T) {
-    gl.lighting(true);
-    gl.texture(0);
-    gl.model(T);
-    gl.draw(m_cube);
-}
-
-void MovieDirectorSimulator::draw_quad(const Transform &T) {
-    gl.lighting(true);
-    gl.texture(0);
-    gl.model(T);
-    gl.draw(m_quad);
 }
 
 int MovieDirectorSimulator::render() {
@@ -226,14 +106,31 @@ int MovieDirectorSimulator::render() {
 
     // Affiche le personnage principal
 
-    for(int i = 0; i < 5; i++) {
-		draw_character(Vector(i*3, 0, i+2), characterSkeleton[i]);
+    for (auto character : gameCharacters) {
+        character->draw(&m_camera);
     }
-
-
     directorCamera->draw(&m_camera);
-
     ground->draw(&m_camera);
+
+    begin(textWidget);
+    label(textWidget, "Bienvenue dans Movie Director Simulator");
+    begin_line(textWidget);
+    label(textWidget, "Pour jouer il vous faudra une manette.");
+    begin_line(textWidget);
+    label(textWidget, "Utilisez les joystick pour vous déplacer et tourner.");
+    begin_line(textWidget);
+    label(textWidget,
+          "Le bouton Y permet de passer du mode 3ème personne au mode première personne.");
+    begin_line(textWidget);
+    label(textWidget,
+          "Le bouton X permet d'avoir une aide visuel sur ce que vois la camera");
+    begin_line(textWidget);
+    label(textWidget, "Vous devez filmez le joueur '%s'",
+          gameCharacters[playerCible]->getColorName());
+    begin_line(textWidget);
+    label(textWidget, "Votre score est de : '%lf'", score);
+    end(textWidget);
+    draw(textWidget, window_width(), window_height());
 
     return 1;
 }
@@ -242,7 +139,8 @@ void MovieDirectorSimulator::manageCameraLight() {
     const float step = m_camera.radius() * 0.005f;
 
     // (De)Active la grille / les axes
-    if (key_state('h')) help();
+    //if (key_state('h')) help();
+    /*
     if (key_state('c')) {
         clear_key_state('c');
         mb_cullface = !mb_cullface;
@@ -264,11 +162,10 @@ void MovieDirectorSimulator::manageCameraLight() {
         clear_key_state('a');
     }
 
-
     // AXE et GRILLE
     gl.model(Scale(10. * step, 10.0 * step, 10.0 * step));
     if (b_draw_grid) gl.draw(m_grid);
-    if (b_draw_axe) gl.draw(m_axe);
+    if (b_draw_axe) gl.draw(m_axe);*/
 }
 
 void MovieDirectorSimulator::init_axe() {
@@ -302,178 +199,34 @@ void MovieDirectorSimulator::init_grid() {
         }
 }
 
-void MovieDirectorSimulator::init_quad() {
-    m_quad = Mesh(GL_TRIANGLE_STRIP);
-    m_quad.color(Color(1, 1, 1));
-
-    m_quad.normal(0, 0, 1);
-
-    m_quad.texcoord(0, 0);
-    m_quad.vertex(-1, -1, 0);
-
-    m_quad.texcoord(1, 0);
-    m_quad.vertex(1, -1, 0);
-
-    m_quad.texcoord(0, 1);
-    m_quad.vertex(-1, 1, 0);
-
-    m_quad.texcoord(1, 1);
-    m_quad.vertex(1, 1, 0);
-}
-
-void MovieDirectorSimulator::init_cube() {
-    static float pt[8][3] = {{-1, -1, -1},
-                             {1,  -1, -1},
-                             {1,  -1, 1},
-                             {-1, -1, 1},
-                             {-1, 1,  -1},
-                             {1,  1,  -1},
-                             {1,  1,  1},
-                             {-1, 1,  1}};
-    static int f[6][4] = {{0, 1, 2, 3},
-                          {5, 4, 7, 6},
-                          {2, 1, 5, 6},
-                          {0, 3, 7, 4},
-                          {3, 2, 6, 7},
-                          {1, 0, 4, 5}};
-    static float n[6][3] = {{0,  -1, 0},
-                            {0,  1,  0},
-                            {1,  0,  0},
-                            {-1, 0,  0},
-                            {0,  0,  1},
-                            {0,  0,  -1}};
-    int i;
-
-    m_cube = Mesh(GL_TRIANGLE_STRIP);
-    m_cube.color(Color(1, 1, 1));
-
-    for (i = 0; i < 6; i++) {
-        m_cube.normal(n[i][0], n[i][1], n[i][2]);
-
-        m_cube.texcoord(0, 0);
-        m_cube.vertex(pt[f[i][0]][0], pt[f[i][0]][1], pt[f[i][0]][2]);
-
-        m_cube.texcoord(1, 0);
-        m_cube.vertex(pt[f[i][1]][0], pt[f[i][1]][1], pt[f[i][1]][2]);
-
-        m_cube.texcoord(0, 1);
-        m_cube.vertex(pt[f[i][3]][0], pt[f[i][3]][1], pt[f[i][3]][2]);
-
-        m_cube.texcoord(1, 1);
-        m_cube.vertex(pt[f[i][2]][0], pt[f[i][2]][1], pt[f[i][2]][2]);
-
-        m_cube.restart_strip();
-    }
-}
-
-void MovieDirectorSimulator::init_sphere() {
-    const int divBeta = 26;
-    const int divAlpha = divBeta / 2;
-    int i, j;
-    float beta, alpha, alpha2;
-
-    m_sphere = Mesh(GL_TRIANGLE_STRIP);
-
-    m_sphere.color(Color(1, 1, 1));
-
-    for (i = 0; i < divAlpha; ++i) {
-        alpha = -0.5f * M_PI + float(i) * M_PI / divAlpha;
-        alpha2 = -0.5f * M_PI + float(i + 1) * M_PI / divAlpha;
-
-        for (j = 0; j < divBeta; ++j) {
-            beta = float(j) * 2.f * M_PI / (divBeta - 1);
-
-            m_sphere.texcoord(beta / (2.0f * M_PI), 0.5f + alpha / M_PI);
-            m_sphere.normal(Vector(cos(alpha) * cos(beta), sin(alpha),
-                                   cos(alpha) * sin(beta)));
-            m_sphere.vertex(Point(cos(alpha) * cos(beta), sin(alpha),
-                                  cos(alpha) * sin(beta)));
-
-            m_sphere.texcoord(beta / (2.0f * M_PI), 0.5f + alpha2 / M_PI);
-            m_sphere.normal(Vector(cos(alpha2) * cos(beta), sin(alpha2),
-                                   cos(alpha2) * sin(beta)));
-            m_sphere.vertex(Point(cos(alpha2) * cos(beta), sin(alpha2),
-                                  cos(alpha2) * sin(beta)));
-
-        }
-
-        m_sphere.restart_strip();
-    }
-}
-
-void MovieDirectorSimulator::init_cone() {
-    int i;
-    const int div = 25;
-    float alpha;
-    float step = 2.0 * M_PI / (div);
-
-    m_cone.color(Color(1, 1, 1));
-
-    m_cone = Mesh(GL_TRIANGLE_STRIP);
-
-    for (i = 0; i <= div; ++i) {
-        alpha = i * step;
-
-        m_cone.normal(Vector(cos(alpha) / sqrtf(2.f), 1.f / sqrtf(2.f),
-                             sin(alpha) / sqrtf(2.f)));
-
-        m_cone.texcoord(float(i) / div, 0.f);
-        m_cone.vertex(Point(cos(alpha), 0, sin(alpha)));
-
-        m_cone.texcoord(float(i) / div, 1.f);
-        m_cone.vertex(Point(0, 1, 0));
-
-    }
-}
-
-void MovieDirectorSimulator::init_cylinder() {
-    int i;
-    const int div = 25;
-    float alpha;
-    float step = 2.0 * M_PI / (div);
-
-    m_cylinder = Mesh(GL_TRIANGLE_STRIP);
-
-    for (i = 0; i <= div; ++i) {
-        alpha = i * step;
-        m_cylinder.normal(Vector(cos(alpha), 0, sin(alpha)));
-        m_cylinder.texcoord(float(i) / div, 0.f);
-        m_cylinder.vertex(Point(cos(alpha), 0, sin(alpha)));
-
-        m_cylinder.normal(Vector(cos(alpha), 0, sin(alpha)));
-        m_cylinder.texcoord(float(i) / div, 1.f);
-        m_cylinder.vertex(Point(cos(alpha), 1, sin(alpha)));
-    }
-
-    m_cylinder_cover = Mesh(GL_TRIANGLE_FAN);
-
-    m_cylinder_cover.normal(Vector(0, 1, 0));
-
-    m_cylinder_cover.vertex(Point(0, 0, 0));
-    for (i = 0; i <= div; ++i) {
-        alpha = -i * step;
-        m_cylinder_cover.vertex(Point(cos(alpha), 0, sin(alpha)));
-    }
-}
-
 int MovieDirectorSimulator::update(const float time, const float delta) {
-    m_ske.setPose(m_bvh, m_frameNumber);
 
-    gamepadInput();
+    gamepadInput(delta);
 
-    for(int i = 0; i < 5; i++) {
-    	cubeController.update(delta / 1000);
-    	characterController[i].update(delta / 1000);
-    	characterSkeleton[i].setPose(*characterController[i].getAnim(),
-                              characterController[i].getFrameAnim());
-
+    if (playerCible == -1 || static_cast<int>(floor(score)) % 100 == 0) {
+        playerCible = rand() % num;
     }
+
+    for (int i = 0; i < num; ++i) {
+        gameCharacters[i]->update(delta / 1000);
+        if (i == playerCible) {
+            if (isInTheCameraView(i)) {
+                score++;
+            } else {
+                if (static_cast<int>(floor(score))-1 % 100 > 0) {
+                    score -= 0.1;
+                }
+            }
+        }
+    }
+    directorCamera->update(delta);
 
     m_world.update(0.1f);
     return 0;
 }
 
-void MovieDirectorSimulator::gamepadInput() {
+
+void MovieDirectorSimulator::gamepadInput(const float dt) {
     if (gamepads.pads() > 0) {
         gamepads.update();
         if (gamepads.button(0, SDL_CONTROLLER_BUTTON_A) == 1) {
@@ -495,6 +248,7 @@ void MovieDirectorSimulator::gamepadInput() {
             directorCamera->moveRight();
         }
         if (gamepads.axis(0, SDL_CONTROLLER_AXIS_LEFTY) <= -0.5) {
+
             directorCamera->moveForward();
         }
         if (gamepads.axis(0, SDL_CONTROLLER_AXIS_LEFTY) >= 0.5) {
@@ -502,9 +256,11 @@ void MovieDirectorSimulator::gamepadInput() {
         }
         if (gamepads.axis(0, SDL_CONTROLLER_AXIS_RIGHTX) >= 0.5) {
             directorCamera->rotateRight();
+            //gameCharacters[0]->setControllerMatrix(directorCamera->getMatrix());
         }
         if (gamepads.axis(0, SDL_CONTROLLER_AXIS_RIGHTX) <= -0.5) {
             directorCamera->rotateLeft();
+            //gameCharacters[0]->setControllerMatrix(directorCamera->getMatrix());
         }
         if (gamepads.axis(0, SDL_CONTROLLER_AXIS_RIGHTY) <= -0.5) {
             directorCamera->rotateUp();
@@ -563,4 +319,29 @@ void MovieDirectorSimulator::gamepadInput() {
     newCameraPosition.y += 20;
     newCameraPosition.z += 10;
     gl.light(newCameraPosition);
+}
+
+bool MovieDirectorSimulator::isInTheCameraView(unsigned int characterIndex) {
+    Point characterPosition =
+            gameCharacters[characterIndex]->getPosition() / 10;
+    // Point par rapport au centre du petit carré de la caméra
+    Point characterPositionInCamera = (directorCamera->getAllTransform().inverse())(
+            characterPosition);
+    //std::cout << gameCharacters[characterIndex]->getColorName() << " "
+    //          << characterPositionInCamera << " : ";
+    if (characterPositionInCamera.z > 0 || characterPositionInCamera.z < -20) {
+        //std::cout << "prof pas ok\n";
+        // Hors du champ de profondeur de la camera
+        return false;
+    } else if (abs(characterPositionInCamera.x) <
+               (abs(characterPositionInCamera.z) / 2) &&
+               abs(characterPositionInCamera.x) >= 0) {
+        //std::cout << "large ok\n";
+        // Dans du champ de largeur de la camera
+        return true;
+    } else {
+        //std::cout << "large pas ok\n";
+        return false;
+    }
+
 }

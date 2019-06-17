@@ -7,7 +7,10 @@
 #include <draw.h>
 #include <gamepads.h>
 #include <vector>
+#include <GL/glut.h>
+#include <widgets.h>
 #include "Anim/CharacterController.h"
+#include "Anim/AIController.h"
 #include "Anim/Skeleton.h"
 #include "Anim/CubeController.h"
 #include "Anim/BVH.h"
@@ -16,6 +19,7 @@
 #include "DirectorCamera.h"
 #include "BasicDrawObject.h"
 #include "Ground.h"
+#include "GameCharacter.h"
 
 class MovieDirectorSimulator : public App {
 public:
@@ -38,18 +42,12 @@ public:
     int quit() { return 1; }
 
 protected:
-	chara::BVH m_bvh;
     int m_frameNumber;
-
-    Skeleton m_ske;
 
     PhysicalWorld m_world;
 
-    CubeController cubeController;
-
-    std::vector<Skeleton> characterSkeleton;
-    std::vector<CharacterController> characterController;
-    const int num = 5;
+    std::vector<GameCharacter *> gameCharacters;
+    const int num = 10;
 
     Orbiter m_camera;
     DrawParam gl;
@@ -59,49 +57,58 @@ protected:
     Mesh m_axe;
     Mesh m_grid;
 
-    Mesh m_quad;
-    Mesh m_cube;
-    Mesh m_sphere;
-    Mesh m_cone;
-    Mesh m_cylinder;
-    Mesh m_cylinder_cover;
     DirectorCamera *directorCamera;
-    Ground * ground;
+    Ground *ground;
     bool FPSView = false;
 
+    double score = 0;
+    unsigned int playerCible = -1;
+
     Gamepads gamepads;
+
+    Widgets textWidget;
 
     bool b_draw_grid;
     bool b_draw_axe;
 
     void init_axe();
+
     void init_grid();
-    void init_quad();
-    void init_cube();
-    void init_sphere();
-    void init_cone();
-    void init_cylinder();
 
     void manageCameraLight();
 
-    void draw_skeleton(Vector v, const Skeleton &, const Transform offset);
+    void gamepadInput(const float dt);
 
-    void draw_character(Vector v, const Skeleton &);
+    bool isInTheCameraView(unsigned int characterIndex);
 
-    void draw_cylinder(Vector v, const Point& a, const Point& b, float r = 1.f);
+    std::vector<std::pair<vec4, const char *>> colors;
 
-   	void draw_cylinder(const Transform& T);
-
-   	void draw_sphere(const Transform& T);
-
-   	void draw_sphere(const Point& a, float r = 1.f);
-
-   	void draw_cube(const Transform& T);
-
-	void draw_quad(const Transform &T);
-
-   	void gamepadInput();
-
+private:
+    void initColors() {
+        colors = std::vector<std::pair<vec4, const char *>>(0);
+        colors.push_back(
+                std::pair<vec4, const char *>(vec4(1, 0, 0, 1), "Rouge"));
+        colors.push_back(
+                std::pair<vec4, const char *>(vec4(0, 1, 0, 1), "Vert"));
+        colors.push_back(
+                std::pair<vec4, const char *>(vec4(0, 0, 1, 1), "Bleu"));
+        colors.push_back(
+                std::pair<vec4, const char *>(vec4(0.35, 0.23, 0.06, 1),
+                                              "Marron"));
+        colors.push_back(
+                std::pair<vec4, const char *>(vec4(1, 1, 0, 1), "Jaune"));
+        colors.push_back(
+                std::pair<vec4, const char *>(vec4(1, 0, 1, 1), "Rose"));
+        colors.push_back(
+                std::pair<vec4, const char *>(vec4(0, 1, 1, 1), "Bleu clair"));
+        colors.push_back(
+                std::pair<vec4, const char *>(vec4(0.87, 0.42, 0.08, 1),
+                                              "Orange"));
+        colors.push_back(
+                std::pair<vec4, const char *>(vec4(1, 1, 1, 1), "Blanc"));
+        colors.push_back(
+                std::pair<vec4, const char *>(vec4(0, 0, 0, 1), "Noir"));
+    }
 };
 
 

@@ -110,6 +110,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/AIController.cpp">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/AIController.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
 		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Anim/Animations/AnimState.h">
 			<Option target="MDS2019.exe"/>
 		</Unit>
@@ -249,6 +255,12 @@
 			<Option target="MDS2019.exe"/>
 		</Unit>
 		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/DirectorCamera.h">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/GameCharacter.cpp">
+			<Option target="MDS2019.exe"/>
+		</Unit>
+		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/GameCharacter.h">
 			<Option target="MDS2019.exe"/>
 		</Unit>
 		<Unit filename="/home/robin/Master/Mif27SynthImg/movie-director-simulator-2019/gkit2light/src/MovieDirectorSimulator2019/Ground.cpp">
