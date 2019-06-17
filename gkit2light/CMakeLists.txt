@@ -32,8 +32,7 @@ target_link_libraries(MDS2019.exe
         ${SDL2_LIBRARIES}
         ${SDL2_IMG_LIBRARIES}
         ${GLEW_LIBRARIES}
-        ${OPENGL_LIBRARIES}
-        ${GLUT_LIBRARIES})
+        ${OPENGL_LIBRARIES})
 
 # Link SDL2, OpenGL and GLEW
 target_link_libraries(shaderKit.exe
