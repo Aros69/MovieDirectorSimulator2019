@@ -59,35 +59,24 @@ int MovieDirectorSimulator::init() {
     */
 
     // etat par defaut openGL
-    glClearColor(0.4f, 0.4f, 0.8f, 1);
+    glClearColor(0.3f, 0.3f, 0.7f, 1);
     //glClearDepthf(1);
-
-    //glEnable(GL_DEPTH_TEST);
     //glDepthFunc(GL_LESS);
+    glEnable(GL_DEPTH_TEST);
 
     //glDisable(GL_CULL_FACE);
-
-    //glEnable(GL_BLEND);
-    //glBlendFunc(GL_ONE, GL_ONE);
-    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    /*glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
-    glFrontFace(GL_CW);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);*/
 
     //glFrontFace(GL_CCW);
     //glCullFace(GL_BACK);
 
-    /*if (mb_cullface)
+    /*if (mb_cullface) {
         glEnable(GL_CULL_FACE);
-    else
-        glDisable(GL_CULL_FACE);        // good for debug
-    glEnable(GL_TEXTURE_2D);*/
-
-    /*glEnable (GL_BLEND);
-    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);*/
+    } else {
+        // good for debug
+        glDisable(GL_CULL_FACE);
+    }
+    glEnable(GL_TEXTURE_2D);
+    */
 
     m_frameNumber = 0;
 

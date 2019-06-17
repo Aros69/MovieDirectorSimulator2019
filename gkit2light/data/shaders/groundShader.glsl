@@ -31,7 +31,7 @@ void main()
     if (test>0.98){
         fragment_color= vec4(1, 1, 1, 1);
     } else {
-        fragment_color= vec4(0.5, 0.5, 0.5, 1);
+        fragment_color= vec4(0.5, 0.5, 0.5, 0.1);
     }
 }
     #endif
