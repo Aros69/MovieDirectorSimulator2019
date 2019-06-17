@@ -54,12 +54,10 @@ protected:
     bool mb_cullface;
     bool mb_wireframe;
 
-    Mesh m_axe;
-    Mesh m_grid;
-
     DirectorCamera *directorCamera;
     Ground *ground;
-    bool FPSView = false;
+    bool FPSView = true;
+    unsigned int timer=0;
 
     double score = 0;
     unsigned int playerCible = -1;
@@ -70,10 +68,6 @@ protected:
 
     bool b_draw_grid;
     bool b_draw_axe;
-
-    void init_axe();
-
-    void init_grid();
 
     void manageCameraLight();
 

@@ -59,13 +59,26 @@ int MovieDirectorSimulator::init() {
     */
 
     // etat par defaut openGL
-    glClearColor(0.5f, 0.5f, 0.9f, 1);
+    glClearColor(0.4f, 0.4f, 0.8f, 1);
     //glClearDepthf(1);
+
+    //glEnable(GL_DEPTH_TEST);
     //glDepthFunc(GL_LESS);
-    glEnable(GL_DEPTH_TEST);
+
+    //glDisable(GL_CULL_FACE);
+
+    //glEnable(GL_BLEND);
+    //glBlendFunc(GL_ONE, GL_ONE);
+    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    /*glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+    glFrontFace(GL_CW);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);*/
+
     //glFrontFace(GL_CCW);
     //glCullFace(GL_BACK);
-
 
     /*if (mb_cullface)
         glEnable(GL_CULL_FACE);
@@ -117,15 +130,15 @@ int MovieDirectorSimulator::render() {
     begin_line(textWidget);
     label(textWidget, "Pour jouer il vous faudra une manette.");
     begin_line(textWidget);
-    label(textWidget, "Utilisez les joystick pour vous déplacer et tourner.");
+    label(textWidget, "Utilisez les joystick pour vous deplacer et tourner.");
     begin_line(textWidget);
     label(textWidget,
-          "Le bouton Y permet de passer du mode 3ème personne au mode première personne.");
+          "Le bouton Y permet de passer du mode 3ème personne au mode premiere personne.");
     begin_line(textWidget);
     label(textWidget,
-          "Le bouton X permet d'avoir une aide visuel sur ce que vois la camera");
+          "Le bouton X permet d'avoir une aide visuelle sur ce que voit la camera");
     begin_line(textWidget);
-    label(textWidget, "Vous devez filmez le joueur '%s'",
+    label(textWidget, "Vous devez filmer le joueur '%s'",
           gameCharacters[playerCible]->getColorName());
     begin_line(textWidget);
     label(textWidget, "Votre score est de : '%lf'", score);
@@ -168,52 +181,22 @@ void MovieDirectorSimulator::manageCameraLight() {
     if (b_draw_axe) gl.draw(m_axe);*/
 }
 
-void MovieDirectorSimulator::init_axe() {
-    m_axe = Mesh(GL_LINES);
-    m_axe.color(Color(1, 0, 0));
-    m_axe.vertex(0, 0, 0);
-    m_axe.vertex(1, 0, 0);
-
-    m_axe.color(Color(0, 1, 0));
-    m_axe.vertex(0, 0, 0);
-    m_axe.vertex(0, 1, 0);
-
-    m_axe.color(Color(0, 0, 1));
-    m_axe.vertex(0, 0, 0);
-    m_axe.vertex(0, 0, 1);
-}
-
-void MovieDirectorSimulator::init_grid() {
-    m_grid = Mesh(GL_LINES);
-
-    m_grid.color(Color(1, 1, 1));
-    int i, j;
-    for (i = -5; i <= 5; ++i)
-        for (j = -5; j <= 5; ++j) {
-            m_grid.vertex(-5, 0, j);
-            m_grid.vertex(5, 0, j);
-
-            m_grid.vertex(i, 0, -5);
-            m_grid.vertex(i, 0, 5);
-
-        }
-}
-
 int MovieDirectorSimulator::update(const float time, const float delta) {
 
     gamepadInput(delta);
 
-    if (playerCible == -1 || static_cast<int>(floor(score)) % 100 == 0) {
+    if (playerCible == -1 || timer > 5000) {
+        timer = 0;
         playerCible = rand() % num;
     }
-
+    timer += delta;
     for (int i = 0; i < num; ++i) {
         gameCharacters[i]->update(delta / 1000);
         if (i == playerCible) {
             if (isInTheCameraView(i)) {
                 score++;
             } else {
-                if (static_cast<int>(floor(score))-1 % 100 > 0) {
+                if (static_cast<int>(floor(score)) - 1 % 100 > 0) {
                     score -= 0.1;
                 }
             }
@@ -306,11 +289,12 @@ void MovieDirectorSimulator::gamepadInput(const float dt) {
         newCameraPosition.x -= 5;
         newCameraPosition.y += 3;
         newCameraPosition.z -= 5;
-        m_camera.lookat(newCameraPosition, 30);
+        m_camera.lookat(newCameraPosition, 100);
         m_camera.rotation(directorCamera->getYRotation(),
                           directorCamera->getXRotation());
+        m_camera.move(50);
     } else {
-        m_camera.lookat(newCameraPosition, 30);
+        m_camera.lookat(newCameraPosition, 50);
         m_camera.rotation(directorCamera->getYRotation(),
                           directorCamera->getXRotation());
         // Value by testing
