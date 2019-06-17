@@ -51,11 +51,13 @@ public:
         }
     };
 
-    void moveRight() { addTransform(Translation(0.5, 0, 0));
+    void moveRight() {
+        addTransform(Translation(0.5, 0, 0));
         Point p = getPosition();
-        if(p.x<-28||p.x>28||p.z>28||p.z<-28){
+        if (p.x < -28 || p.x > 28 || p.z > 28 || p.z < -28) {
             addTransform(Translation(-0.5, 0, 0));
-        }};
+        }
+    };
 
     void rotateLeft() {
         addTransform(RotationY(1));
@@ -87,6 +89,10 @@ public:
 
     void changeHelp() { needHelp = !needHelp; };
 
+    void changeIsInCameraView() { isInCameraView = !isInCameraView; };
+
+    bool getIsInCameraView() { return isInCameraView; };
+
     Transform getAllTransform() {
         return immutableOffset * baseMatrix * XRotation;
     };
@@ -102,9 +108,10 @@ private:
     float xRotAngle = 0;
     int distMax;
     bool needHelp = false;
+    bool isInCameraView = false;
 
     Mesh cameraViewMesh;
-    GameCharacter* director;
+    GameCharacter *director;
 };
 
 

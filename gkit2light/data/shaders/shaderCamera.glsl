@@ -36,6 +36,7 @@ bool isOnLinesWeDontWant(in vec3 point, in float distMax){
     #ifdef FRAGMENT_SHADER
 uniform int distanceMax;
 uniform bool helpNeeded;
+uniform bool isInCameraView;
 
 in vec3 vertex_uv;
 in vec3 vertex_position;
@@ -58,7 +59,11 @@ void main()
     } else {
         // clean the fragment (become transparent)
         if (helpNeeded && vertex_position.z == distanceMax){
-            fragment_color= vec4(0.8, 0.8, 0.8, 0.1);
+            if(isInCameraView){
+                fragment_color= vec4(0, 0.2, 0, 0.1);
+            } else {
+                fragment_color= vec4(0.2, 0, 0, 0.1);
+            }
         } else {
             discard;
         }

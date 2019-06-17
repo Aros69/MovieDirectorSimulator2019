@@ -55,6 +55,7 @@ void DirectorCamera::draw(Orbiter *camera) {
     program_uniform(shaderProgram, "mvpMatrix", mvp);
     program_uniform(shaderProgram, "distanceMax", distMax);
     program_uniform(shaderProgram, "helpNeeded", needHelp);
+    program_uniform(shaderProgram, "isInCameraView", isInCameraView);
     cameraViewMesh.draw(shaderProgram, true, true, true, true);
     //director->draw(camera);
 };

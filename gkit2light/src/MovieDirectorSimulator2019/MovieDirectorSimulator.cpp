@@ -183,9 +183,15 @@ int MovieDirectorSimulator::update(const float time, const float delta) {
         gameCharacters[i]->update(delta / 1000);
         if (i == playerCible) {
             if (isInTheCameraView(i)) {
+                if(!directorCamera->getIsInCameraView()){
+                    directorCamera->changeIsInCameraView();
+                }
                 score++;
             } else {
                 if (static_cast<int>(floor(score)) - 1 % 100 > 0) {
+                    if(directorCamera->getIsInCameraView()){
+                        directorCamera->changeIsInCameraView();
+                    }
                     score -= 0.1;
                 }
             }
